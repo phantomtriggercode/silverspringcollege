@@ -1,0 +1,1291 @@
+/* ============================================
+   SILVERSPRING COLLEGE BEKA — MASTER STYLESHEET
+   ============================================ */
+
+/* --- 1. Brand Variables ---
+   These are "CSS custom properties". Think of them as labeled
+   paint cans — we mix the colors once here, then just say
+   "use the --maroon can" everywhere else in this file.
+   Change a hex code here and the ENTIRE site updates. */
+:root {
+  --maroon-dark: #4a0c12;
+  --maroon: #5c0f16;
+  --gold: #c9a227;
+  --gold-light: #e6c869;
+  --cream: #faf7ef;
+  --white: #ffffff;
+  --charcoal: #2b2521;
+  --gray: #6b6660;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', Arial, sans-serif;
+}
+
+/* --- 2. Reset ---
+   Every browser has slightly different default spacing.
+   This wipes that out so we start from a clean, predictable slate. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--charcoal);
+  background-color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* --- 3. Reusable Layout Helper ---
+   Almost every section needs its content "boxed in" with margins
+   on big screens instead of stretching edge-to-edge. We'll reuse
+   this ".container" class constantly. */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- 4. Reusable Button Style --- */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--gold);
+  color: var(--maroon-dark);
+}
+
+.btn-primary:hover {
+  background-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.btn-outline:hover {
+  background-color: var(--white);
+  color: var(--maroon);
+}
+
+
+/* ============================================
+   HEADER / NAVIGATION
+   ============================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--white);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 52px;
+  width: auto;
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--maroon);
+  line-height: 1.15;
+}
+
+.logo-text small {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* --- Nav links --- */
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav a {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--charcoal);
+  transition: color 0.2s ease;
+}
+
+.main-nav > ul > li > a:hover {
+  color: var(--maroon);
+}
+
+/* --- Portal dropdown --- */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background-color: var(--maroon);
+  color: var(--white) !important;
+  padding: 10px 18px;
+  border-radius: 4px;
+}
+
+.dropdown-toggle:hover {
+  background-color: var(--maroon-dark);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--white);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-radius: 6px;
+  min-width: 210px;
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.2s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--charcoal) !important;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.dropdown-menu li a:hover {
+  background-color: var(--cream);
+  color: var(--maroon) !important;
+}
+
+/* --- Hamburger menu button (hidden on desktop) --- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-toggle span {
+  width: 26px;
+  height: 3px;
+  background-color: var(--maroon);
+  border-radius: 2px;
+}
+
+/* --- Mobile responsive nav --- */
+@media (max-width: 860px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+    transition: right 0.3s ease;
+    padding: 90px 24px 24px;
+  }
+
+  .main-nav.open {
+    right: 0;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .main-nav ul li {
+    width: 100%;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 12px 0;
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    display: none;
+    padding-left: 12px;
+  }
+
+  .dropdown.mobile-open .dropdown-menu {
+    display: block;
+  }
+}
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  background-image: 
+    linear-gradient(135deg, rgba(74,12,18,0.88), rgba(92,15,22,0.75) 60%, rgba(74,12,18,0.9)),
+    url('../images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* A subtle gold glow effect in the background using a radial gradient */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(201,162,39,0.25), transparent 55%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.hero-eyebrow {
+  color: var(--gold-light);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  color: var(--white);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  margin-bottom: 22px;
+}
+
+.hero-subtitle {
+  color: rgba(255,255,255,0.85);
+  font-size: 1.08rem;
+  max-width: 560px;
+  margin-bottom: 34px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   STATS STRIP
+   ============================================ */
+.stats-strip {
+  background-color: var(--cream);
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Stack stats 2x2 on small screens instead of squishing 4 across */
+@media (max-width: 700px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* ============================================
+   SHARED SECTION HELPERS
+   ============================================ */
+.section-eyebrow {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  color: var(--maroon-dark);
+  margin-bottom: 20px;
+}
+
+.section-body {
+  color: var(--gray);
+  margin-bottom: 18px;
+  max-width: 540px;
+}
+
+.center {
+  text-align: center;
+  max-width: none;
+}
+
+/* ============================================
+   ABOUT PREVIEW
+   ============================================ */
+.about-preview {
+  padding: 90px 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.highlight-card {
+  background-color: var(--cream);
+  border-left: 4px solid var(--gold);
+  border-radius: 6px;
+  padding: 28px;
+}
+
+.highlight-icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.highlight-card h3 {
+  color: var(--maroon);
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.highlight-card p {
+  color: var(--gray);
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   PROGRAMS PREVIEW
+   ============================================ */
+.programs-preview {
+  background-color: var(--maroon-dark);
+  padding: 90px 0;
+}
+
+.programs-preview .section-eyebrow,
+.programs-preview .section-title {
+  color: var(--white);
+}
+
+.programs-preview .section-eyebrow {
+  color: var(--gold-light);
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+
+@media (max-width: 700px) {
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.program-card {
+  background-color: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 36px 28px;
+  text-align: center;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-6px);
+  background-color: rgba(255,255,255,0.1);
+}
+
+.program-icon {
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+}
+
+.program-card h3 {
+  color: var(--gold-light);
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.program-card p {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.92rem;
+}
+
+.programs-cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* ============================================
+   RESPONSIVE: stack on smaller screens
+   ============================================ */
+@media (max-width: 860px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+  background-color: var(--maroon-dark);
+  color: rgba(255,255,255,0.8);
+  padding-top: 70px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 50px;
+}
+
+.footer-logo {
+  height: 56px;
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+  max-width: 280px;
+}
+
+.footer-col h4 {
+  color: var(--gold-light);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 18px;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-col ul li a {
+  color: rgba(255,255,255,0.75);
+  transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+  color: var(--gold-light);
+}
+
+.footer-contact li {
+  color: rgba(255,255,255,0.75);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding: 22px 0;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.footer-bottom-inner a {
+  color: var(--gold-light);
+}
+
+/* Responsive footer */
+@media (max-width: 860px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ============================================
+   PAGE BANNER (used on every inner page)
+   ============================================ */
+.page-banner {
+  background: linear-gradient(135deg, var(--maroon-dark), var(--maroon) 60%, var(--maroon-dark));
+  padding: 70px 0 50px;
+  color: var(--white);
+}
+
+.page-banner h1 {
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  margin: 10px 0 14px;
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.breadcrumb a {
+  color: var(--gold-light);
+}
+
+/* Highlight the current page in the nav */
+.main-nav a.active {
+  color: var(--maroon);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 4px;
+}
+
+/* ============================================
+   STORY SECTION (about.html)
+   ============================================ */
+.story-section {
+  padding: 90px 0;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+}
+
+.story-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story-side .highlight-card a {
+  color: var(--maroon);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ============================================
+   VISION / MISSION / VALUES CARDS
+   ============================================ */
+.vm-section {
+  background-color: var(--cream);
+  padding: 90px 0;
+}
+
+.vm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.vm-card {
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 36px 30px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.vm-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.vm-card h3 {
+  color: var(--maroon);
+  margin-bottom: 12px;
+}
+
+.vm-card p {
+  color: var(--gray);
+  font-size: 0.94rem;
+}
+
+/* ============================================
+   ENF CONNECTION SECTION
+   ============================================ */
+.enf-section {
+  padding: 90px 0;
+}
+
+.enf-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ============================================
+   RESPONSIVE (about.html sections)
+   ============================================ */
+@media (max-width: 860px) {
+  .story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vm-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ============================================
+   ACADEMICS INTRO
+   ============================================ */
+.academics-intro {
+  padding: 90px 0 60px;
+}
+
+.academics-intro .section-body {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   TRACK SECTIONS (repeating alternating blocks)
+   ============================================ */
+.track-section {
+  padding: 70px 0;
+}
+
+.track-alt {
+  background-color: var(--cream);
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* Flips icon to the right side by reversing visual order */
+.track-reverse {
+  grid-template-columns: 1fr 220px;
+}
+
+.track-reverse .track-icon-block {
+  order: 2;
+}
+
+.track-icon-block {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track-icon {
+  font-size: 4.5rem;
+}
+
+.track-list {
+  margin: 16px 0 20px;
+  padding-left: 20px;
+}
+
+.track-list li {
+  list-style: disc;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.track-cert {
+  color: var(--maroon);
+  font-size: 0.92rem;
+  background-color: var(--cream);
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border-left: 3px solid var(--gold);
+}
+
+.track-alt .track-cert {
+  background-color: var(--white);
+}
+
+/* ============================================
+   UNIVERSITY DESTINATIONS
+   ============================================ */
+.destinations-section {
+  padding: 90px 0;
+  background-color: var(--cream);
+}
+
+.destinations-flags {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.flag-item {
+  font-size: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.flag-item span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--maroon);
+}
+
+/* ============================================
+   RESPONSIVE: track sections stack on mobile
+   ============================================ */
+@media (max-width: 700px) {
+  .track-grid,
+  .track-reverse {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .track-reverse .track-icon-block {
+    order: 0;
+  }
+
+  .track-icon-block {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+  .track-icon {
+    font-size: 3rem;
+  }
+
+  .track-list {
+    text-align: left;
+    display: inline-block;
+  }
+}
+/* ============================================
+   ADMISSIONS PROCESS STEPS
+   ============================================ */
+.process-section {
+  padding: 90px 0 60px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+
+.process-step {
+  text-align: center;
+  padding: 20px;
+}
+
+.process-number {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  line-height: 52px;
+  margin-bottom: 16px;
+}
+
+.process-step h3 {
+  color: var(--maroon);
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.process-step p {
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   REQUIREMENTS SECTION
+   ============================================ */
+.requirements-section {
+  padding: 60px 0 90px;
+}
+
+.req-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.req-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  color: var(--charcoal);
+}
+
+.req-note-card {
+  padding: 32px;
+}
+
+/* ============================================
+   INQUIRY FORM
+   ============================================ */
+.form-section {
+  background-color: var(--cream);
+  padding: 90px 0;
+}
+
+.form-container {
+  max-width: 720px;
+}
+
+.inquiry-form {
+  margin-top: 40px;
+  background-color: var(--white);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.form-submit {
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+}
+
+/* ============================================
+   RESPONSIVE (admissions.html)
+   ============================================ */
+@media (max-width: 860px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .req-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .inquiry-form {
+    padding: 24px;
+  }
+}
+/* ============================================
+   GALLERY GRID
+   ============================================ */
+.gallery-section {
+  padding: 90px 0;
+}
+
+.gallery-section .section-body {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.gallery-item {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* This targets a REAL <img> if/when you swap one in,
+   so it fills the square tile nicely without distortion */
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.06);
+}
+
+.gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cream), #f0ebe0);
+  border: 2px dashed rgba(92,15,22,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--maroon);
+  transition: background-color 0.25s ease;
+}
+
+.gallery-placeholder:hover {
+  background: linear-gradient(135deg, #f0ebe0, var(--cream));
+}
+
+.gallery-placeholder span {
+  font-size: 2.5rem;
+}
+
+.gallery-placeholder p {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================
+   RESPONSIVE (gallery.html)
+   ============================================ */
+@media (max-width: 860px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ============================================
+   CONTACT INFO CARDS
+   ============================================ */
+.contact-info-section {
+  padding: 90px 0 60px;
+}
+
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.contact-card {
+  background-color: var(--cream);
+  border-radius: 10px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.contact-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.contact-card h3 {
+  color: var(--maroon);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  color: var(--gray);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ============================================
+   MAP + CONTACT FORM
+   ============================================ */
+.contact-main-section {
+  padding: 60px 0 90px;
+}
+
+.contact-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: stretch;
+}
+
+.contact-map-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 420px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.contact-map {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  border: 0;
+}
+
+.contact-form-wrap .inquiry-form {
+  margin-top: 24px;
+  padding: 32px;
+}
+
+/* ============================================
+   RESPONSIVE (contact.html)
+   ============================================ */
+@media (max-width: 960px) {
+  .contact-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-map-wrap {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ============================================
+   STAFF & ADMINISTRATORS
+   ============================================ */
+.staff-section {
+  padding: 90px 0;
+}
+
+.staff-alt {
+  background-color: var(--cream);
+}
+
+.staff-section .section-body {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+
+.staff-card {
+  text-align: center;
+}
+
+.staff-photo-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin: 0 auto 18px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* When you replace the placeholder with a real <img class="staff-photo">,
+   this makes it fill the same circular shape automatically */
+.staff-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 18px;
+}
+
+.staff-card h3 {
+  color: var(--maroon-dark);
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.staff-role {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 860px) {
+  .staff-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .staff-grid {
+    grid-template-columns: 1fr;
+  }
+}
