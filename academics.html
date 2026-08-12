@@ -27,38 +27,25 @@
 
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/staff">Staff</a></li>
-          <li><a href="/academics" class="active">Academics</a></li>
-          <li><a href="/admissions">Admissions</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À propos">About</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" class="active" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
+          <li><a href="/contact" data-fr="Contact">Contact</a></li>
           <li class="lang-switcher">
-            <button type="button" class="lang-quick-btn active" data-lang="en" aria-label="View in English">EN</button>
-            <button type="button" class="lang-quick-btn" data-lang="fr" aria-label="Voir en français">FR</button>
-            <span class="lang-divider" aria-hidden="true"></span>
-            <select class="lang-more-select" aria-label="Translate to another language">
-              <option value="" selected>🌐 Translate</option>
-              <option value="es">Español</option>
-              <option value="pt">Português</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-              <option value="ar">العربية</option>
-              <option value="sw">Kiswahili</option>
-              <option value="zh-CN">中文 (简体)</option>
-              <option value="hi">हिन्दी</option>
-              <option value="ru">Русский</option>
-              <option value="ja">日本語</option>
+            <select class="lang-select" aria-label="Choose language / Choisir la langue">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
             </select>
-            <div id="google_translate_element"></div>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle">School Portal ▾</a>
+            <a href="#" class="dropdown-toggle" data-fr="Portail Scolaire ▾">School Portal ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
-              <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
-              <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+              <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener" data-fr="Consulter les Résultats">Check Results</a></li>
+              <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener" data-fr="Consulter l'Emploi du Temps">Check Timetable</a></li>
+              <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener" data-fr="Imprimer les Bulletins">Print Report Cards</a></li>
             </ul>
           </li>
         </ul>
@@ -69,18 +56,18 @@
   <!-- ============ PAGE BANNER ============ -->
   <section class="page-banner">
     <div class="container">
-      <p class="hero-eyebrow">What We Teach</p>
-      <h1>Our Academic Programs</h1>
-      <p class="breadcrumb"><a href="/">Home</a> / Academics</p>
+      <p class="hero-eyebrow" data-fr="Ce Que Nous Enseignons">What We Teach</p>
+      <h1 data-fr="Nos Programmes Académiques">Our Academic Programs</h1>
+      <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Académique">Academics</span></p>
     </div>
   </section>
 
   <!-- ============ INTRO ============ -->
   <section class="academics-intro">
     <div class="container">
-      <p class="section-eyebrow center">Four Tracks, Every Learner Covered</p>
-      <h2 class="section-title center">Choose the Path That Fits Your Future</h2>
-      <p class="section-body center">
+      <p class="section-eyebrow center" data-fr="Quatre Filières, Chaque Élève Couvert">Four Tracks, Every Learner Covered</p>
+      <h2 class="section-title center" data-fr="Choisissez la Voie qui Correspond à Votre Avenir">Choose the Path That Fits Your Future</h2>
+      <p class="section-body center" data-fr="Chaque élève de SCB travaille vers une certification reconnue au niveau national. Que votre point fort soit la théorie académique, les compétences techniques pratiques, les affaires ou la technologie, il existe une filière structurée conçue pour vous.">
         Every SCB student works toward a nationally recognized certification.
         Whether your strength is academic theory, hands-on technical skill,
         business, or technology, there's a structured track built for you.
@@ -95,14 +82,14 @@
         <span class="track-icon">📘</span>
       </div>
       <div class="track-content">
-        <p class="section-eyebrow">Track 01</p>
-        <h2 class="section-title">Arts &amp; Science</h2>
-        <p class="section-body">
+        <p class="section-eyebrow" data-fr="Filière 01">Track 01</p>
+        <h2 class="section-title" data-fr="Arts et Sciences">Arts &amp; Science</h2>
+        <p class="section-body" data-fr="Notre filière académique principale couvre l'ensemble des matières générales de lettres et de sciences, préparant les élèves aux examens nationaux de niveaux Ordinary et Advanced.">
           Our core academic track covers the full range of general arts and
           science subjects, preparing students for national examinations at
           both Ordinary and Advanced Level.
         </p>
-        <p class="track-cert"><strong>Certification:</strong> GCE Ordinary Level &amp; GCE Advanced Level</p>
+        <p class="track-cert" data-fr="GCE Ordinary Level et GCE Advanced Level"><strong>Certification:</strong> GCE Ordinary Level &amp; GCE Advanced Level</p>
       </div>
     </div>
   </section>
@@ -111,17 +98,17 @@
   <section class="track-section">
     <div class="container track-grid track-reverse">
       <div class="track-content">
-        <p class="section-eyebrow">Track 02</p>
-        <h2 class="section-title">Technical</h2>
-        <p class="section-body">
+        <p class="section-eyebrow" data-fr="Filière 02">Track 02</p>
+        <h2 class="section-title" data-fr="Technique">Technical</h2>
+        <p class="section-body" data-fr="Une formation pratique et professionnalisante dans trois filières techniques spécialisées :">
           Hands-on, career-ready training in three specialized technical fields:
         </p>
         <ul class="track-list">
-          <li>Building &amp; Construction</li>
-          <li>Electrical Power Systems</li>
-          <li>Auto Mobile Mechanics</li>
+          <li data-fr="Bâtiment et Construction">Building &amp; Construction</li>
+          <li data-fr="Systèmes Électriques">Electrical Power Systems</li>
+          <li data-fr="Mécanique Automobile">Auto Mobile Mechanics</li>
         </ul>
-        <p class="track-cert"><strong>Certification:</strong> GCE ITVE (Intermediate Technical Vocational Education) &amp; GCE TVEE (Technical and Vocational Education Examination, Advanced Level)</p>
+        <p class="track-cert" data-fr="GCE ITVE (Intermediate Technical Vocational Education) et GCE TVEE (Technical and Vocational Education Examination, Advanced Level)"><strong>Certification:</strong> GCE ITVE (Intermediate Technical Vocational Education) &amp; GCE TVEE (Technical and Vocational Education Examination, Advanced Level)</p>
       </div>
       <div class="track-icon-block">
         <span class="track-icon">🛠️</span>
@@ -136,18 +123,18 @@
         <span class="track-icon">💼</span>
       </div>
       <div class="track-content">
-        <p class="section-eyebrow">Track 03</p>
-        <h2 class="section-title">Commercial</h2>
-        <p class="section-body">
+        <p class="section-eyebrow" data-fr="Filière 03">Track 03</p>
+        <h2 class="section-title" data-fr="Commercial">Commercial</h2>
+        <p class="section-body" data-fr="Une filière axée sur les affaires, dotant les élèves de compétences financières et entrepreneuriales pratiques :">
           A business-focused track equipping students with practical financial
           and enterprise skills:
         </p>
         <ul class="track-list">
-          <li>Accountancy</li>
-          <li>Marketing</li>
-          <li>Home Economics</li>
+          <li data-fr="Comptabilité">Accountancy</li>
+          <li data-fr="Marketing">Marketing</li>
+          <li data-fr="Économie Familiale">Home Economics</li>
         </ul>
-        <p class="track-cert"><strong>Certification:</strong> GCE Ordinary &amp; Advanced Level (Commercial Subjects)</p>
+        <p class="track-cert" data-fr="GCE Ordinary et Advanced Level (Matières Commerciales)"><strong>Certification:</strong> GCE Ordinary &amp; Advanced Level (Commercial Subjects)</p>
       </div>
     </div>
   </section>
@@ -156,18 +143,18 @@
   <section class="track-section">
     <div class="container track-grid track-reverse">
       <div class="track-content">
-        <p class="section-eyebrow">Track 04</p>
-        <h2 class="section-title">Computer Science</h2>
-        <p class="section-body">
+        <p class="section-eyebrow" data-fr="Filière 04">Track 04</p>
+        <h2 class="section-title" data-fr="Informatique">Computer Science</h2>
+        <p class="section-body" data-fr="Notre filière la plus récente prépare les élèves à un monde numérique, couvrant les fondamentaux de l'informatique et des compétences pratiques en TIC :">
           Our newest track prepares students for a digital-first world, covering
           computing fundamentals and practical ICT skills:
         </p>
         <ul class="track-list">
-          <li>Computer Science</li>
-          <li>Information &amp; Communication Technology (ICT)</li>
-          <li>Programming Fundamentals</li>
+          <li data-fr="Informatique">Computer Science</li>
+          <li data-fr="Technologies de l'Information et de la Communication (TIC)">Information &amp; Communication Technology (ICT)</li>
+          <li data-fr="Fondamentaux de la Programmation">Programming Fundamentals</li>
         </ul>
-        <p class="track-cert"><strong>Certification:</strong> GCE Ordinary &amp; Advanced Level (Computer Science)</p>
+        <p class="track-cert" data-fr="GCE Ordinary et Advanced Level (Informatique)"><strong>Certification:</strong> GCE Ordinary &amp; Advanced Level (Computer Science)</p>
       </div>
       <div class="track-icon-block">
         <span class="track-icon">💻</span>
@@ -178,16 +165,16 @@
   <!-- ============ UNIVERSITY DESTINATIONS ============ -->
   <section class="destinations-section">
     <div class="container">
-      <p class="section-eyebrow center">Beyond SCB</p>
-      <h2 class="section-title center">Where Our Graduates Go</h2>
-      <p class="section-body center">
+      <p class="section-eyebrow center" data-fr="Au-delà de SCB">Beyond SCB</p>
+      <h2 class="section-title center" data-fr="Où Vont Nos Diplômés">Where Our Graduates Go</h2>
+      <p class="section-body center" data-fr="SCB développe activement des partenariats avec des institutions à l'étranger, ouvrant des portes à nos diplômés pour poursuivre leurs études à l'international.">
         SCB actively builds partnerships with institutions abroad, opening doors
         for our graduates to continue their studies internationally.
       </p>
       <div class="destinations-flags">
-        <div class="flag-item">🇺🇸 <span>United States</span></div>
-        <div class="flag-item">🇨🇦 <span>Canada</span></div>
-        <div class="flag-item">🇪🇺 <span>Europe</span></div>
+        <div class="flag-item">🇺🇸 <span data-fr="États-Unis">United States</span></div>
+        <div class="flag-item">🇨🇦 <span data-fr="Canada">Canada</span></div>
+        <div class="flag-item">🇪🇺 <span data-fr="Europe">Europe</span></div>
       </div>
     </div>
   </section>
@@ -195,10 +182,10 @@
   <!-- ============ CTA ============ -->
   <section class="programs-preview">
     <div class="container" style="text-align:center;">
-      <h2 class="section-title" style="color:var(--white);">Ready to Begin Your SCB Journey?</h2>
-      <p class="section-body center" style="color:rgba(255,255,255,0.75); margin-left:auto; margin-right:auto;">Applications are open for the upcoming academic year.</p>
+      <h2 class="section-title" style="color:var(--white);" data-fr="Prêt à Commencer Votre Parcours à SCB ?">Ready to Begin Your SCB Journey?</h2>
+      <p class="section-body center" style="color:rgba(255,255,255,0.75); margin-left:auto; margin-right:auto;" data-fr="Les candidatures sont ouvertes pour la prochaine année académique.">Applications are open for the upcoming academic year.</p>
       <div class="programs-cta">
-        <a href="/admissions" class="btn btn-primary">Start Your Application</a>
+        <a href="/admissions" class="btn btn-primary" data-fr="Commencer Votre Candidature">Start Your Application</a>
       </div>
     </div>
   </section>
@@ -208,31 +195,31 @@
     <div class="container footer-grid">
       <div class="footer-col footer-brand">
         <img src="images/logo.png" alt="Silverspring College Beka logo" class="footer-logo">
-        <p class="footer-tagline">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
+        <p class="footer-tagline" data-fr="Fondé par la Fondation Enow Njock — façonnant la prochaine génération de leaders du Cameroun depuis 2022.">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
       </div>
       <div class="footer-col">
-        <h4>Quick Links</h4>
+        <h4 data-fr="Liens Rapides">Quick Links</h4>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/staff">Staff</a></li>
-          <li><a href="/academics">Academics</a></li>
-          <li><a href="/admissions">Admissions</a></li>
-          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À Propos de Nous">About Us</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>School Portal</h4>
+        <h4 data-fr="Portail Scolaire">School Portal</h4>
         <ul>
-          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
-          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
-          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener" data-fr="Consulter les Résultats">Check Results</a></li>
+          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener" data-fr="Consulter l'Emploi du Temps">Check Timetable</a></li>
+          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener" data-fr="Imprimer les Bulletins">Print Report Cards</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4 data-fr="Contact">Contact</h4>
         <ul class="footer-contact">
-          <li>Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
+          <li data-fr="Beka Matali, Ngaoundéré I<br>Division de la Vina, Région de l'Adamaoua<br>Cameroun">Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
           <li>[SCHOOL PHONE NUMBER]</li>
           <li>[SCHOOL EMAIL ADDRESS]</li>
         </ul>
@@ -240,13 +227,12 @@
     </div>
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p>&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
-        <p>An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
+        <p data-fr="&amp;copy; <span id=&quot;year&quot;></span> Silverspring College Beka. Tous droits réservés.">&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
+        <p data-fr="Un établissement de la <a href=&quot;https://enownjockfoundation.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Fondation Enow Njock</a>">An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
       </div>
     </div>
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>

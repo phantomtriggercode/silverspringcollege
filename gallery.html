@@ -27,38 +27,25 @@
 
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/staff">Staff</a></li>
-          <li><a href="/academics">Academics</a></li>
-          <li><a href="/admissions">Admissions</a></li>
-          <li><a href="/gallery" class="active">Gallery</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À propos">About</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" class="active" data-fr="Galerie">Gallery</a></li>
+          <li><a href="/contact" data-fr="Contact">Contact</a></li>
           <li class="lang-switcher">
-            <button type="button" class="lang-quick-btn active" data-lang="en" aria-label="View in English">EN</button>
-            <button type="button" class="lang-quick-btn" data-lang="fr" aria-label="Voir en français">FR</button>
-            <span class="lang-divider" aria-hidden="true"></span>
-            <select class="lang-more-select" aria-label="Translate to another language">
-              <option value="" selected>🌐 Translate</option>
-              <option value="es">Español</option>
-              <option value="pt">Português</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-              <option value="ar">العربية</option>
-              <option value="sw">Kiswahili</option>
-              <option value="zh-CN">中文 (简体)</option>
-              <option value="hi">हिन्दी</option>
-              <option value="ru">Русский</option>
-              <option value="ja">日本語</option>
+            <select class="lang-select" aria-label="Choose language / Choisir la langue">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
             </select>
-            <div id="google_translate_element"></div>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle">School Portal ▾</a>
+            <a href="#" class="dropdown-toggle" data-fr="Portail Scolaire ▾">School Portal ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
-              <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
-              <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+              <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener" data-fr="Consulter les Résultats">Check Results</a></li>
+              <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener" data-fr="Consulter l'Emploi du Temps">Check Timetable</a></li>
+              <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener" data-fr="Imprimer les Bulletins">Print Report Cards</a></li>
             </ul>
           </li>
         </ul>
@@ -69,18 +56,18 @@
   <!-- ============ PAGE BANNER ============ -->
   <section class="page-banner">
     <div class="container">
-      <p class="hero-eyebrow">Campus Life</p>
-      <h1>Gallery</h1>
-      <p class="breadcrumb"><a href="/">Home</a> / Gallery</p>
+      <p class="hero-eyebrow" data-fr="Vie sur le Campus">Campus Life</p>
+      <h1 data-fr="Galerie">Gallery</h1>
+      <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Galerie">Gallery</span></p>
     </div>
   </section>
 
   <!-- ============ GALLERY GRID ============ -->
   <section class="gallery-section">
     <div class="container">
-      <p class="section-eyebrow center">A Look Inside SCB</p>
-      <h2 class="section-title center">Life at Silverspring College Beka</h2>
-      <p class="section-body center">Photos coming soon — check back as we document campus life, classes, and events.</p>
+      <p class="section-eyebrow center" data-fr="Un Aperçu de SCB">A Look Inside SCB</p>
+      <h2 class="section-title center" data-fr="La Vie à Silverspring College Beka">Life at Silverspring College Beka</h2>
+      <p class="section-body center" data-fr="Photos à venir bientôt — revenez consulter cette page pendant que nous documentons la vie sur le campus, les cours et les événements.">Photos coming soon — check back as we document campus life, classes, and events.</p>
 
       <div class="gallery-grid">
         <!--
@@ -91,28 +78,28 @@
           Keep the surrounding <div class="gallery-item"> wrapper as-is.
         -->
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>🏫</span><p>Campus Grounds</p></div>
+          <div class="gallery-placeholder"><span>🏫</span><p data-fr="Terrain du Campus">Campus Grounds</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>📚</span><p>Classroom Life</p></div>
+          <div class="gallery-placeholder"><span>📚</span><p data-fr="Vie en Classe">Classroom Life</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>🎓</span><p>Graduation Day</p></div>
+          <div class="gallery-placeholder"><span>🎓</span><p data-fr="Jour de Remise des Diplômes">Graduation Day</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>⚽</span><p>Sports &amp; Activities</p></div>
+          <div class="gallery-placeholder"><span>⚽</span><p data-fr="Sports et Activités">Sports &amp; Activities</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>🔬</span><p>Science &amp; Labs</p></div>
+          <div class="gallery-placeholder"><span>🔬</span><p data-fr="Sciences et Laboratoires">Science &amp; Labs</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>💻</span><p>Computer Studies</p></div>
+          <div class="gallery-placeholder"><span>💻</span><p data-fr="Études Informatiques">Computer Studies</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>🛠️</span><p>Technical Workshop</p></div>
+          <div class="gallery-placeholder"><span>🛠️</span><p data-fr="Atelier Technique">Technical Workshop</p></div>
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder"><span>🎉</span><p>School Events</p></div>
+          <div class="gallery-placeholder"><span>🎉</span><p data-fr="Événements Scolaires">School Events</p></div>
         </div>
       </div>
     </div>
@@ -123,31 +110,31 @@
     <div class="container footer-grid">
       <div class="footer-col footer-brand">
         <img src="images/logo.png" alt="Silverspring College Beka logo" class="footer-logo">
-        <p class="footer-tagline">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
+        <p class="footer-tagline" data-fr="Fondé par la Fondation Enow Njock — façonnant la prochaine génération de leaders du Cameroun depuis 2022.">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
       </div>
       <div class="footer-col">
-        <h4>Quick Links</h4>
+        <h4 data-fr="Liens Rapides">Quick Links</h4>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/staff">Staff</a></li>
-          <li><a href="/academics">Academics</a></li>
-          <li><a href="/admissions">Admissions</a></li>
-          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À Propos de Nous">About Us</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>School Portal</h4>
+        <h4 data-fr="Portail Scolaire">School Portal</h4>
         <ul>
-          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
-          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
-          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener" data-fr="Consulter les Résultats">Check Results</a></li>
+          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener" data-fr="Consulter l'Emploi du Temps">Check Timetable</a></li>
+          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener" data-fr="Imprimer les Bulletins">Print Report Cards</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4 data-fr="Contact">Contact</h4>
         <ul class="footer-contact">
-          <li>Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
+          <li data-fr="Beka Matali, Ngaoundéré I<br>Division de la Vina, Région de l'Adamaoua<br>Cameroun">Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
           <li>[SCHOOL PHONE NUMBER]</li>
           <li>[SCHOOL EMAIL ADDRESS]</li>
         </ul>
@@ -155,13 +142,12 @@
     </div>
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p>&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
-        <p>An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
+        <p data-fr="&amp;copy; <span id=&quot;year&quot;></span> Silverspring College Beka. Tous droits réservés.">&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
+        <p data-fr="Un établissement de la <a href=&quot;https://enownjockfoundation.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Fondation Enow Njock</a>">An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
       </div>
     </div>
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>

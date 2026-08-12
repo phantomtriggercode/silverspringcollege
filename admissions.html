@@ -27,38 +27,25 @@
 
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/staff">Staff</a></li>
-          <li><a href="/academics">Academics</a></li>
-          <li><a href="/admissions" class="active">Admissions</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À propos">About</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" class="active" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
+          <li><a href="/contact" data-fr="Contact">Contact</a></li>
           <li class="lang-switcher">
-            <button type="button" class="lang-quick-btn active" data-lang="en" aria-label="View in English">EN</button>
-            <button type="button" class="lang-quick-btn" data-lang="fr" aria-label="Voir en français">FR</button>
-            <span class="lang-divider" aria-hidden="true"></span>
-            <select class="lang-more-select" aria-label="Translate to another language">
-              <option value="" selected>🌐 Translate</option>
-              <option value="es">Español</option>
-              <option value="pt">Português</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-              <option value="ar">العربية</option>
-              <option value="sw">Kiswahili</option>
-              <option value="zh-CN">中文 (简体)</option>
-              <option value="hi">हिन्दी</option>
-              <option value="ru">Русский</option>
-              <option value="ja">日本語</option>
+            <select class="lang-select" aria-label="Choose language / Choisir la langue">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
             </select>
-            <div id="google_translate_element"></div>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle">School Portal ▾</a>
+            <a href="#" class="dropdown-toggle" data-fr="Portail Scolaire ▾">School Portal ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
-              <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
-              <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+              <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener" data-fr="Consulter les Résultats">Check Results</a></li>
+              <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener" data-fr="Consulter l'Emploi du Temps">Check Timetable</a></li>
+              <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener" data-fr="Imprimer les Bulletins">Print Report Cards</a></li>
             </ul>
           </li>
         </ul>
@@ -69,38 +56,38 @@
   <!-- ============ PAGE BANNER ============ -->
   <section class="page-banner">
     <div class="container">
-      <p class="hero-eyebrow">Join SCB</p>
-      <h1>Admissions</h1>
-      <p class="breadcrumb"><a href="/">Home</a> / Admissions</p>
+      <p class="hero-eyebrow" data-fr="Rejoindre SCB">Join SCB</p>
+      <h1 data-fr="Admissions">Admissions</h1>
+      <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Admissions">Admissions</span></p>
     </div>
   </section>
 
   <!-- ============ ADMISSIONS PROCESS ============ -->
   <section class="process-section">
     <div class="container">
-      <p class="section-eyebrow center">How to Apply</p>
-      <h2 class="section-title center">Your Path to Enrollment</h2>
+      <p class="section-eyebrow center" data-fr="Comment Postuler">How to Apply</p>
+      <h2 class="section-title center" data-fr="Votre Chemin vers l'Inscription">Your Path to Enrollment</h2>
 
       <div class="process-grid">
         <div class="process-step">
           <span class="process-number">01</span>
-          <h3>Submit Inquiry</h3>
-          <p>Fill out the inquiry form below or contact our admissions office directly with your child's information.</p>
+          <h3 data-fr="Soumettre une Demande">Submit Inquiry</h3>
+          <p data-fr="Remplissez le formulaire de demande ci-dessous ou contactez directement notre bureau des admissions avec les informations de votre enfant.">Fill out the inquiry form below or contact our admissions office directly with your child's information.</p>
         </div>
         <div class="process-step">
           <span class="process-number">02</span>
-          <h3>Document Review</h3>
-          <p>Submit required documents: birth certificate, previous school report cards, and passport photographs.</p>
+          <h3 data-fr="Examen des Documents">Document Review</h3>
+          <p data-fr="Soumettez les documents requis : acte de naissance, bulletins scolaires précédents et photos d'identité.">Submit required documents: birth certificate, previous school report cards, and passport photographs.</p>
         </div>
         <div class="process-step">
           <span class="process-number">03</span>
-          <h3>Placement</h3>
-          <p>Our academic team reviews the student's records and confirms placement into the appropriate class and track.</p>
+          <h3 data-fr="Placement">Placement</h3>
+          <p data-fr="Notre équipe académique examine le dossier de l'élève et confirme son placement dans la classe et la filière appropriées.">Our academic team reviews the student's records and confirms placement into the appropriate class and track.</p>
         </div>
         <div class="process-step">
           <span class="process-number">04</span>
-          <h3>Confirm Enrollment</h3>
-          <p>Complete registration and fee payment to secure your child's place at SCB for the academic year.</p>
+          <h3 data-fr="Confirmer l'Inscription">Confirm Enrollment</h3>
+          <p data-fr="Complétez l'inscription et le paiement des frais pour garantir la place de votre enfant à SCB pour l'année académique.">Complete registration and fee payment to secure your child's place at SCB for the academic year.</p>
         </div>
       </div>
     </div>
@@ -110,25 +97,25 @@
   <section class="requirements-section">
     <div class="container req-grid">
       <div>
-        <p class="section-eyebrow">What You'll Need</p>
-        <h2 class="section-title">Admission Requirements</h2>
-        <p class="section-body">
+        <p class="section-eyebrow" data-fr="Ce Dont Vous Aurez Besoin">What You'll Need</p>
+        <h2 class="section-title" data-fr="Conditions d'Admission">Admission Requirements</h2>
+        <p class="section-body" data-fr="Pour finaliser l'inscription à Silverspring College Beka, les parents et tuteurs doivent préparer les documents suivants :">
           To complete enrollment at Silverspring College Beka, parents and
           guardians should prepare the following documents:
         </p>
         <ul class="req-list">
-          <li>✔ Birth certificate (original + copy)</li>
-          <li>✔ Previous school report cards / transcript</li>
-          <li>✔ 4 passport-sized photographs</li>
-          <li>✔ Certificate of transfer (if changing schools)</li>
-          <li>✔ Completed SCB registration form</li>
+          <li data-fr="✔ Acte de naissance (original + copie)">✔ Birth certificate (original + copy)</li>
+          <li data-fr="✔ Bulletins scolaires précédents / relevé de notes">✔ Previous school report cards / transcript</li>
+          <li data-fr="✔ 4 photos d'identité">✔ 4 passport-sized photographs</li>
+          <li data-fr="✔ Certificat de transfert (en cas de changement d'école)">✔ Certificate of transfer (if changing schools)</li>
+          <li data-fr="✔ Formulaire d'inscription SCB complété">✔ Completed SCB registration form</li>
         </ul>
       </div>
       <div class="highlight-card req-note-card">
         <span class="highlight-icon">ℹ️</span>
-        <h3>Have Questions?</h3>
-        <p>Our admissions office is happy to guide you through document requirements specific to your child's entry class. Reach out via the Contact page or the form below.</p>
-        <a href="/contact" class="btn btn-primary" style="margin-top:16px;">Contact Admissions</a>
+        <h3 data-fr="Des Questions ?">Have Questions?</h3>
+        <p data-fr="Notre bureau des admissions se fera un plaisir de vous guider à travers les exigences documentaires spécifiques à la classe d'entrée de votre enfant. Contactez-nous via la page Contact ou le formulaire ci-dessous.">Our admissions office is happy to guide you through document requirements specific to your child's entry class. Reach out via the Contact page or the form below.</p>
+        <a href="/contact" class="btn btn-primary" style="margin-top:16px;" data-fr="Contacter les Admissions">Contact Admissions</a>
       </div>
     </div>
   </section>
@@ -136,9 +123,9 @@
   <!-- ============ INQUIRY FORM ============ -->
   <section class="form-section">
     <div class="container form-container">
-      <p class="section-eyebrow center">Get Started</p>
-      <h2 class="section-title center">Submit an Admission Inquiry</h2>
-      <p class="section-body center">Fill in the form below and our admissions team will get back to you.</p>
+      <p class="section-eyebrow center" data-fr="Commencer">Get Started</p>
+      <h2 class="section-title center" data-fr="Soumettre une Demande d'Admission">Submit an Admission Inquiry</h2>
+      <p class="section-body center" data-fr="Remplissez le formulaire ci-dessous et notre équipe des admissions vous recontactera.">Fill in the form below and our admissions team will get back to you.</p>
 
       <!-- 
         IMPORTANT: Replace "YOUR_FORM_ID" below with your real Formspree ID
@@ -147,50 +134,50 @@
       <form class="inquiry-form" action="https://formspree.io/f/xppawrgr" method="POST">
         <div class="form-row">
           <div class="form-group">
-            <label for="parent-name">Parent/Guardian Name</label>
+            <label for="parent-name" data-fr="Nom du Parent/Tuteur">Parent/Guardian Name</label>
             <input type="text" id="parent-name" name="Parent Name" required>
           </div>
           <div class="form-group">
-            <label for="student-name">Student Name</label>
+            <label for="student-name" data-fr="Nom de l'Élève">Student Name</label>
             <input type="text" id="student-name" name="Student Name" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="phone">Phone Number</label>
+            <label for="phone" data-fr="Numéro de Téléphone">Phone Number</label>
             <input type="tel" id="phone" name="Phone" required>
           </div>
           <div class="form-group">
-            <label for="email">Email Address</label>
+            <label for="email" data-fr="Adresse E-mail">Email Address</label>
             <input type="email" id="email" name="Email" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="track">Track of Interest</label>
+            <label for="track" data-fr="Filière d'Intérêt">Track of Interest</label>
             <select id="track" name="Track of Interest" required>
-              <option value="">Select a track</option>
-              <option value="Arts & Science">Arts &amp; Science</option>
-              <option value="Technical">Technical</option>
-              <option value="Commercial">Commercial</option>
-              <option value="Computer Science">Computer Science</option>
-              <option value="Not sure yet">Not sure yet</option>
+              <option value="" data-fr="Sélectionner une filière">Select a track</option>
+              <option value="Arts & Science" data-fr="Arts et Sciences">Arts &amp; Science</option>
+              <option value="Technical" data-fr="Technique">Technical</option>
+              <option value="Commercial" data-fr="Commercial">Commercial</option>
+              <option value="Computer Science" data-fr="Informatique">Computer Science</option>
+              <option value="Not sure yet" data-fr="Pas encore sûr">Not sure yet</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="class-level">Entry Class</label>
-            <input type="text" id="class-level" name="Entry Class" placeholder="e.g. Form 1, Lower Sixth">
+            <label for="class-level" data-fr="Classe d'Entrée">Entry Class</label>
+            <input type="text" id="class-level" name="Entry Class" placeholder="e.g. Form 1, Lower Sixth" data-fr-placeholder="ex. Form 1, Lower Sixth">
           </div>
         </div>
 
         <div class="form-group form-group-full">
-          <label for="message">Message (optional)</label>
+          <label for="message" data-fr="Message (facultatif)">Message (optional)</label>
           <textarea id="message" name="Message" rows="4"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary form-submit">Submit Inquiry</button>
+        <button type="submit" class="btn btn-primary form-submit" data-fr="Soumettre la Demande">Submit Inquiry</button>
       </form>
     </div>
   </section>
@@ -200,31 +187,31 @@
     <div class="container footer-grid">
       <div class="footer-col footer-brand">
         <img src="images/logo.png" alt="Silverspring College Beka logo" class="footer-logo">
-        <p class="footer-tagline">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
+        <p class="footer-tagline" data-fr="Fondé par la Fondation Enow Njock — façonnant la prochaine génération de leaders du Cameroun depuis 2022.">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
       </div>
       <div class="footer-col">
-        <h4>Quick Links</h4>
+        <h4 data-fr="Liens Rapides">Quick Links</h4>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/staff">Staff</a></li>
-          <li><a href="/academics">Academics</a></li>
-          <li><a href="/admissions">Admissions</a></li>
-          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À Propos de Nous">About Us</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>School Portal</h4>
+        <h4 data-fr="Portail Scolaire">School Portal</h4>
         <ul>
-          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
-          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
-          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener" data-fr="Consulter les Résultats">Check Results</a></li>
+          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener" data-fr="Consulter l'Emploi du Temps">Check Timetable</a></li>
+          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener" data-fr="Imprimer les Bulletins">Print Report Cards</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4 data-fr="Contact">Contact</h4>
         <ul class="footer-contact">
-          <li>Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
+          <li data-fr="Beka Matali, Ngaoundéré I<br>Division de la Vina, Région de l'Adamaoua<br>Cameroun">Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
           <li>[SCHOOL PHONE NUMBER]</li>
           <li>[SCHOOL EMAIL ADDRESS]</li>
         </ul>
@@ -232,13 +219,12 @@
     </div>
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p>&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
-        <p>An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
+        <p data-fr="&amp;copy; <span id=&quot;year&quot;></span> Silverspring College Beka. Tous droits réservés.">&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
+        <p data-fr="Un établissement de la <a href=&quot;https://enownjockfoundation.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Fondation Enow Njock</a>">An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
       </div>
     </div>
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>

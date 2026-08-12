@@ -224,78 +224,22 @@ h1, h2, h3, h4 {
   color: var(--maroon) !important;
 }
 
-/* --- Language switcher (EN/FR quick toggle + Google Translate select) --- */
-.lang-switcher {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.lang-quick-btn {
+/* --- Language switcher (EN / Français, swapped instantly client-side) --- */
+.lang-select {
   font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  color: var(--charcoal);
-  background: none;
-  border: 1px solid rgba(0,0,0,0.15);
-  border-radius: 4px;
-  padding: 6px 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.lang-quick-btn:hover {
-  border-color: var(--maroon);
-  color: var(--maroon);
-}
-
-.lang-quick-btn.active {
-  background-color: var(--maroon);
-  border-color: var(--maroon);
-  color: var(--white);
-}
-
-.lang-divider {
-  width: 1px;
-  height: 18px;
-  background: rgba(0,0,0,0.15);
-  margin: 0 2px;
-}
-
-.lang-more-select {
-  font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--charcoal);
   background-color: var(--white);
   border: 1px solid rgba(0,0,0,0.15);
   border-radius: 4px;
-  padding: 6px 8px;
+  padding: 8px 10px;
   cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
-/* Google's translate widget only needs to exist in the DOM to do its
-   work (reading the googtrans cookie and translating the page on load).
-   Its own UI — icon, tooltip, "powered by Google" banner — is never
-   something we want visible, and past attempts to selectively hide
-   pieces of it broke because its internal markup isn't guaranteed to
-   match any particular selector. Hide the whole thing instead. */
-#google_translate_element {
-  display: none !important;
-}
-
-.goog-te-banner-frame.skiptranslate {
-  display: none !important;
-}
-
-body {
-  top: 0 !important;
-}
-
-.goog-text-highlight {
-  background: none !important;
-  box-shadow: none !important;
+.lang-select:hover {
+  border-color: var(--maroon);
 }
 
 /* --- Hamburger menu button (hidden on desktop) --- */
@@ -317,9 +261,9 @@ body {
 }
 
 /* --- Mobile responsive nav ---
-   Wider than the site's other 860px breakpoints: the nav now carries the
-   language switcher too, so it needs more room before it fits on one line. */
-@media (max-width: 1080px) {
+   Slightly wider than the site's other 860px breakpoints: the nav now
+   also carries the language select, which needs a little extra room. */
+@media (max-width: 900px) {
   .menu-toggle {
     display: flex;
   }
@@ -371,9 +315,13 @@ body {
   }
 
   .lang-switcher {
-    padding: 16px 0;
+    padding-top: 16px;
     margin-top: 8px;
     border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .lang-select {
+    width: 100%;
   }
 }
 /* ============================================
