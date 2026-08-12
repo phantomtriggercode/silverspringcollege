@@ -34,6 +34,12 @@
           <li><a href="/admissions">Admissions</a></li>
           <li><a href="/gallery">Gallery</a></li>
           <li><a href="/contact" class="active">Contact</a></li>
+          <li class="lang-switcher">
+            <button type="button" class="lang-quick-btn active" data-lang="en" aria-label="View in English">EN</button>
+            <button type="button" class="lang-quick-btn" data-lang="fr" aria-label="Voir en français">FR</button>
+            <span class="lang-divider" aria-hidden="true"></span>
+            <div id="google_translate_element" aria-label="Translate to another language"></div>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle">School Portal ▾</a>
             <ul class="dropdown-menu">
@@ -82,4 +88,50 @@
     </div>
   </section>
 
-  <!--
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col footer-brand">
+        <img src="images/logo.png" alt="Silverspring College Beka logo" class="footer-logo">
+        <p class="footer-tagline">Founded by the Enow Njock Foundation — shaping Cameroon's next generation of leaders since 2022.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/staff">Staff</a></li>
+          <li><a href="/academics">Academics</a></li>
+          <li><a href="/admissions">Admissions</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>School Portal</h4>
+        <ul>
+          <li><a href="https://portal.silverspringcollege.com/results" target="_blank" rel="noopener">Check Results</a></li>
+          <li><a href="https://portal.silverspringcollege.com/timetable" target="_blank" rel="noopener">Check Timetable</a></li>
+          <li><a href="https://portal.silverspringcollege.com/report-cards" target="_blank" rel="noopener">Print Report Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li>Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
+          <li>[SCHOOL PHONE NUMBER]</li>
+          <li>[SCHOOL EMAIL ADDRESS]</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
+        <p>An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</body>
+</html>
