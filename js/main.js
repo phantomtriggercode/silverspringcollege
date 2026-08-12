@@ -63,14 +63,32 @@ function applyLanguage(lang) {
 }
 
 function getStoredLanguage() {
-  return localStorage.getItem(LANG_STORAGE_KEY) === 'fr' ? 'fr' : 'en';
+  // Some mobile browsers (Safari private mode, in-app browsers like
+  // Instagram/Facebook's) throw on localStorage access instead of just
+  // returning null. If that throw isn't caught here, it aborts the rest
+  // of this script — including the addEventListener call below — so the
+  // switcher would render but silently do nothing when clicked.
+  try {
+    return localStorage.getItem(LANG_STORAGE_KEY) === 'fr' ? 'fr' : 'en';
+  } catch (e) {
+    return 'en';
+  }
+}
+
+function storeLanguage(lang) {
+  try {
+    localStorage.setItem(LANG_STORAGE_KEY, lang);
+  } catch (e) {
+    // Storage blocked — translation still applies for this page view,
+    // it just won't be remembered on the next page.
+  }
 }
 
 applyLanguage(getStoredLanguage());
 
 document.querySelectorAll('.lang-select').forEach((select) => {
   select.addEventListener('change', () => {
-    localStorage.setItem(LANG_STORAGE_KEY, select.value);
+    storeLanguage(select.value);
     applyLanguage(select.value);
   });
 });
