@@ -305,6 +305,7 @@ h1, h2, h3, h4 {
     transition: right 0.3s ease;
     padding: 90px 24px 24px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .main-nav.open {

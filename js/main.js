@@ -1,80 +1,97 @@
 // ============================================
 // MOBILE MENU TOGGLE
 // ============================================
+// Wrapped so that if anything here throws on a particular device/browser,
+// it can never take down the other features below (copyright year,
+// language switcher) — each section here initializes independently.
+(function initMobileMenu() {
+  // This must match the nav breakpoint in style.css (@media max-width: 900px)
+  const MOBILE_NAV_BREAKPOINT = 900;
 
-// This must match the nav breakpoint in style.css (@media max-width: 900px) —
-// below it we're in the slide-out mobile nav, above it the desktop nav.
-const MOBILE_NAV_BREAKPOINT = 900;
+  const menuToggle = document.getElementById('menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
+  const dropdownToggle = document.querySelector('.dropdown-toggle');
+  const dropdown = document.querySelector('.dropdown');
 
-// Grab references to the hamburger button, the nav menu, and the backdrop
-// behind it.
-const menuToggle = document.getElementById('menu-toggle');
-const mainNav = document.getElementById('main-nav');
-const navBackdrop = document.getElementById('nav-backdrop');
+  if (!menuToggle || !mainNav) return;
 
-function openMobileNav() {
-  mainNav.classList.add('open');
-  menuToggle.classList.add('open');
-  navBackdrop.classList.add('open');
-  document.body.classList.add('nav-open');
-  menuToggle.setAttribute('aria-expanded', 'true');
-}
-
-function closeMobileNav() {
-  mainNav.classList.remove('open');
-  menuToggle.classList.remove('open');
-  navBackdrop.classList.remove('open');
-  document.body.classList.remove('nav-open');
-  menuToggle.setAttribute('aria-expanded', 'false');
-}
-
-// Tapping the hamburger toggles the menu; the button itself morphs into
-// an X (see style.css) so it's clear the same button closes it again.
-menuToggle.addEventListener('click', () => {
-  if (mainNav.classList.contains('open')) {
-    closeMobileNav();
-  } else {
-    openMobileNav();
+  function openMobileNav() {
+    mainNav.classList.add('open');
+    menuToggle.classList.add('open');
+    if (navBackdrop) navBackdrop.classList.add('open');
+    document.body.classList.add('nav-open');
+    menuToggle.setAttribute('aria-expanded', 'true');
   }
-});
 
-// Tapping the dimmed backdrop, pressing Escape, or tapping any real nav
-// link all close the menu too — a slide-out menu with only one way to
-// close it feels stuck.
-navBackdrop.addEventListener('click', closeMobileNav);
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && mainNav.classList.contains('open')) {
-    closeMobileNav();
+  function closeMobileNav() {
+    mainNav.classList.remove('open');
+    menuToggle.classList.remove('open');
+    if (navBackdrop) navBackdrop.classList.remove('open');
+    document.body.classList.remove('nav-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
   }
-});
 
-mainNav.querySelectorAll('a:not(.dropdown-toggle)').forEach((link) => {
-  link.addEventListener('click', () => {
-    if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
+  // Tapping the hamburger toggles the menu; the button itself morphs into
+  // an X (see style.css) so it's clear the same button closes it again.
+  menuToggle.addEventListener('click', () => {
+    if (mainNav.classList.contains('open')) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
+  });
+
+  if (navBackdrop) {
+    navBackdrop.addEventListener('click', closeMobileNav);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mainNav.classList.contains('open')) {
       closeMobileNav();
     }
   });
-});
 
-// On mobile, the Portal dropdown needs to open on TAP instead of HOVER
-// (phones don't have a mouse to "hover" with).
-// The mobile-open toggle only makes sense on small screens, but this link
-// is href="#" purely as a hover trigger on desktop — it should never
-// actually navigate and leave "#" in the address bar, on any screen size.
-const dropdownToggle = document.querySelector('.dropdown-toggle');
-const dropdown = document.querySelector('.dropdown');
+  mainNav.querySelectorAll('a:not(.dropdown-toggle)').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
+        closeMobileNav();
+      }
+    });
+  });
 
-dropdownToggle.addEventListener('click', (e) => {
-  e.preventDefault();
-  if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
-    dropdown.classList.toggle('mobile-open');
+  // On mobile, the Portal dropdown needs to open on TAP instead of HOVER
+  // (phones don't have a mouse to "hover" with). This link is href="#"
+  // purely as a hover trigger on desktop — it should never actually
+  // navigate and leave "#" in the address bar, on any screen size.
+  if (dropdownToggle && dropdown) {
+    dropdownToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
+        dropdown.classList.toggle('mobile-open');
+        if (dropdown.classList.contains('mobile-open')) {
+          // Scrolling to reveal the newly-expanded submenu shouldn't be
+          // left to chance (browser auto-scroll behavior here is
+          // inconsistent) — do it explicitly so the submenu is always
+          // reachable inside the scrollable nav panel.
+          requestAnimationFrame(() => {
+            dropdown.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          });
+        }
+      }
+    });
   }
-});
+})();
+
 // ============================================
 // AUTO-UPDATE COPYRIGHT YEAR
 // ============================================
-document.getElementById('year').textContent = new Date().getFullYear();
+(function initCopyrightYear() {
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+})();
 
 // ============================================
 // LANGUAGE SWITCHER (English / Français)
@@ -83,58 +100,58 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // its French text right on it (data-fr), and switching languages just
 // swaps innerHTML in place, instantly, with no reload and nothing that
 // depends on a network call succeeding.
+(function initLanguageSwitcher() {
+  const LANG_STORAGE_KEY = 'scb-lang';
 
-const LANG_STORAGE_KEY = 'scb-lang';
+  function applyLanguage(lang) {
+    document.documentElement.lang = lang;
 
-function applyLanguage(lang) {
-  document.documentElement.lang = lang;
+    document.querySelectorAll('[data-fr]').forEach((el) => {
+      if (el.dataset.en === undefined) {
+        el.dataset.en = el.innerHTML;
+      }
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
 
-  document.querySelectorAll('[data-fr]').forEach((el) => {
-    if (el.dataset.en === undefined) {
-      el.dataset.en = el.innerHTML;
+    document.querySelectorAll('[data-fr-placeholder]').forEach((el) => {
+      if (el.dataset.enPlaceholder === undefined) {
+        el.dataset.enPlaceholder = el.placeholder;
+      }
+      el.placeholder = lang === 'fr' ? el.dataset.frPlaceholder : el.dataset.enPlaceholder;
+    });
+
+    document.querySelectorAll('.lang-select').forEach((select) => {
+      select.value = lang;
+    });
+  }
+
+  function getStoredLanguage() {
+    // Some mobile browsers (Safari private mode, in-app browsers like
+    // Instagram/Facebook's) throw on localStorage access instead of just
+    // returning null — catch that so it can't stop translation from
+    // working for this page view.
+    try {
+      return localStorage.getItem(LANG_STORAGE_KEY) === 'fr' ? 'fr' : 'en';
+    } catch (e) {
+      return 'en';
     }
-    el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
-  });
+  }
 
-  document.querySelectorAll('[data-fr-placeholder]').forEach((el) => {
-    if (el.dataset.enPlaceholder === undefined) {
-      el.dataset.enPlaceholder = el.placeholder;
+  function storeLanguage(lang) {
+    try {
+      localStorage.setItem(LANG_STORAGE_KEY, lang);
+    } catch (e) {
+      // Storage blocked — translation still applies for this page view,
+      // it just won't be remembered on the next page.
     }
-    el.placeholder = lang === 'fr' ? el.dataset.frPlaceholder : el.dataset.enPlaceholder;
-  });
+  }
+
+  applyLanguage(getStoredLanguage());
 
   document.querySelectorAll('.lang-select').forEach((select) => {
-    select.value = lang;
+    select.addEventListener('change', () => {
+      storeLanguage(select.value);
+      applyLanguage(select.value);
+    });
   });
-}
-
-function getStoredLanguage() {
-  // Some mobile browsers (Safari private mode, in-app browsers like
-  // Instagram/Facebook's) throw on localStorage access instead of just
-  // returning null. If that throw isn't caught here, it aborts the rest
-  // of this script — including the addEventListener call below — so the
-  // switcher would render but silently do nothing when clicked.
-  try {
-    return localStorage.getItem(LANG_STORAGE_KEY) === 'fr' ? 'fr' : 'en';
-  } catch (e) {
-    return 'en';
-  }
-}
-
-function storeLanguage(lang) {
-  try {
-    localStorage.setItem(LANG_STORAGE_KEY, lang);
-  } catch (e) {
-    // Storage blocked — translation still applies for this page view,
-    // it just won't be remembered on the next page.
-  }
-}
-
-applyLanguage(getStoredLanguage());
-
-document.querySelectorAll('.lang-select').forEach((select) => {
-  select.addEventListener('change', () => {
-    storeLanguage(select.value);
-    applyLanguage(select.value);
-  });
-});
+})();
