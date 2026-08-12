@@ -31,68 +31,46 @@ dropdownToggle.addEventListener('click', (e) => {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // ============================================
-// LANGUAGE SWITCHER (Google Translate powered)
+// LANGUAGE SWITCHER (English / Français)
 // ============================================
-// The EN/FR buttons and the "more languages" <select> both drive the same
-// Google Translate Website Translator widget, loaded via a <script> tag
-// at the bottom of the page. The widget itself stays completely hidden
-// (CSS) — we never touch its own UI, only the googtrans cookie it reads
-// on load to decide what to translate the page into.
+// No third-party service involved — every translatable element carries
+// its French text right on it (data-fr), and switching languages just
+// swaps innerHTML in place, instantly, with no reload and nothing that
+// depends on a network call succeeding.
 
-// Google calls this once its script has loaded (see the script tag at the
-// bottom of the page, which references this function by name).
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement(
-    { pageLanguage: 'en', autoDisplay: false },
-    'google_translate_element'
-  );
-  syncLangButtons();
-}
-window.googleTranslateElementInit = googleTranslateElementInit;
+const LANG_STORAGE_KEY = 'scb-lang';
 
-function currentGoogTransLang() {
-  const match = document.cookie.match(/(?:^|;\s*)googtrans=([^;]*)/);
-  if (!match) return 'en';
-  // Google stores this cookie as "/en/<target-lang>"
-  return decodeURIComponent(match[1]).split('/')[2] || 'en';
-}
+function applyLanguage(lang) {
+  document.documentElement.lang = lang;
 
-function syncLangButtons() {
-  const lang = currentGoogTransLang();
-  document.querySelectorAll('.lang-quick-btn').forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
+  document.querySelectorAll('[data-fr]').forEach((el) => {
+    if (el.dataset.en === undefined) {
+      el.dataset.en = el.innerHTML;
+    }
+    el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
   });
-  document.querySelectorAll('.lang-more-select').forEach((select) => {
-    const hasOption = Array.from(select.options).some((opt) => opt.value === lang);
-    select.value = hasOption ? lang : '';
+
+  document.querySelectorAll('[data-fr-placeholder]').forEach((el) => {
+    if (el.dataset.enPlaceholder === undefined) {
+      el.dataset.enPlaceholder = el.placeholder;
+    }
+    el.placeholder = lang === 'fr' ? el.dataset.frPlaceholder : el.dataset.enPlaceholder;
+  });
+
+  document.querySelectorAll('.lang-select').forEach((select) => {
+    select.value = lang;
   });
 }
 
-function setSiteLanguage(lang) {
-  // Google's widget reads this cookie on load and translates the page
-  // before it finishes rendering. Setting it and reloading is the
-  // reliable way to trigger a translation — simulating a change on
-  // Google's own <select> is fragile (a synthetic event only reaches
-  // Google's listener if it bubbles, and plain `new Event('change')`
-  // doesn't by default) and depends on the widget already being loaded.
-  if (lang === 'en') {
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${location.hostname}`;
-  } else {
-    document.cookie = `googtrans=/en/${lang}; path=/`;
-  }
-  location.reload();
+function getStoredLanguage() {
+  return localStorage.getItem(LANG_STORAGE_KEY) === 'fr' ? 'fr' : 'en';
 }
 
-document.querySelectorAll('.lang-quick-btn').forEach((btn) => {
-  btn.addEventListener('click', () => setSiteLanguage(btn.dataset.lang));
-});
+applyLanguage(getStoredLanguage());
 
-document.querySelectorAll('.lang-more-select').forEach((select) => {
-  select.addEventListener('change', () => setSiteLanguage(select.value));
+document.querySelectorAll('.lang-select').forEach((select) => {
+  select.addEventListener('change', () => {
+    localStorage.setItem(LANG_STORAGE_KEY, select.value);
+    applyLanguage(select.value);
+  });
 });
-
-// Reflect the active language in the switcher as soon as the page loads,
-// in case the googleTranslateElementInit callback (which also calls this)
-// is slow to fire.
-syncLangButtons();
