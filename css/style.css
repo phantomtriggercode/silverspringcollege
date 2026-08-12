@@ -159,13 +159,14 @@ h1, h2, h3, h4 {
 .main-nav ul {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 22px;
 }
 
 .main-nav a {
   font-weight: 600;
   font-size: 0.92rem;
   color: var(--charcoal);
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
@@ -262,20 +263,7 @@ h1, h2, h3, h4 {
   margin: 0 2px;
 }
 
-/* Google's widget injects its own markup (icon, tooltip, banner) inside
-   #google_translate_element; we surface only the plain <select> it
-   creates and style that ourselves so it reads as part of the site nav. */
-#google_translate_element .goog-te-gadget {
-  font-size: 0;
-  color: transparent;
-}
-
-#google_translate_element .goog-te-gadget-icon,
-#google_translate_element .goog-te-gadget > span > a {
-  display: none !important;
-}
-
-#google_translate_element select.goog-te-combo {
+.lang-more-select {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
@@ -287,9 +275,16 @@ h1, h2, h3, h4 {
   cursor: pointer;
 }
 
-/* Hide the "powered by Google" banner iframe that otherwise pushes the
-   whole page down after a translation is applied, and the highlight
-   tooltip Google adds to translated text. */
+/* Google's translate widget only needs to exist in the DOM to do its
+   work (reading the googtrans cookie and translating the page on load).
+   Its own UI — icon, tooltip, "powered by Google" banner — is never
+   something we want visible, and past attempts to selectively hide
+   pieces of it broke because its internal markup isn't guaranteed to
+   match any particular selector. Hide the whole thing instead. */
+#google_translate_element {
+  display: none !important;
+}
+
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
 }
@@ -321,8 +316,10 @@ body {
   border-radius: 2px;
 }
 
-/* --- Mobile responsive nav --- */
-@media (max-width: 860px) {
+/* --- Mobile responsive nav ---
+   Wider than the site's other 860px breakpoints: the nav now carries the
+   language switcher too, so it needs more room before it fits on one line. */
+@media (max-width: 1080px) {
   .menu-toggle {
     display: flex;
   }

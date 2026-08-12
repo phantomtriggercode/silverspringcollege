@@ -33,12 +33,11 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // ============================================
 // LANGUAGE SWITCHER (Google Translate powered)
 // ============================================
-// The EN/FR buttons and the visible <select> both drive the same Google
-// Translate Website Translator widget, loaded via a <script> tag at the
-// bottom of the page. The widget itself is hidden by CSS except for its
-// native <select>, which we restyle to blend with the site nav — that
-// select doubles as the "translate to any language" control, since Google
-// populates it with every language it supports.
+// The EN/FR buttons and the "more languages" <select> both drive the same
+// Google Translate Website Translator widget, loaded via a <script> tag
+// at the bottom of the page. The widget itself stays completely hidden
+// (CSS) — we never touch its own UI, only the googtrans cookie it reads
+// on load to decide what to translate the page into.
 
 // Google calls this once its script has loaded (see the script tag at the
 // bottom of the page, which references this function by name).
@@ -63,6 +62,10 @@ function syncLangButtons() {
   document.querySelectorAll('.lang-quick-btn').forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+  document.querySelectorAll('.lang-more-select').forEach((select) => {
+    const hasOption = Array.from(select.options).some((opt) => opt.value === lang);
+    select.value = hasOption ? lang : '';
+  });
 }
 
 function setSiteLanguage(lang) {
@@ -85,11 +88,11 @@ document.querySelectorAll('.lang-quick-btn').forEach((btn) => {
   btn.addEventListener('click', () => setSiteLanguage(btn.dataset.lang));
 });
 
-// Keep the EN/FR buttons in sync when someone picks a language directly
-// from Google's own select (event delegation, since it's added to the
-// page after this script runs).
-document.addEventListener('change', (e) => {
-  if (e.target.matches('#google_translate_element select.goog-te-combo')) {
-    syncLangButtons();
-  }
+document.querySelectorAll('.lang-more-select').forEach((select) => {
+  select.addEventListener('change', () => setSiteLanguage(select.value));
 });
+
+// Reflect the active language in the switcher as soon as the page loads,
+// in case the googleTranslateElementInit callback (which also calls this)
+// is slow to fire.
+syncLangButtons();
