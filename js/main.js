@@ -2,15 +2,59 @@
 // MOBILE MENU TOGGLE
 // ============================================
 
-// Grab references to the hamburger button and the nav menu
+// This must match the nav breakpoint in style.css (@media max-width: 900px) —
+// below it we're in the slide-out mobile nav, above it the desktop nav.
+const MOBILE_NAV_BREAKPOINT = 900;
+
+// Grab references to the hamburger button, the nav menu, and the backdrop
+// behind it.
 const menuToggle = document.getElementById('menu-toggle');
 const mainNav = document.getElementById('main-nav');
+const navBackdrop = document.getElementById('nav-backdrop');
 
-// When the hamburger button is clicked, toggle the "open" class on the nav.
-// The CSS we wrote earlier says: .main-nav.open { right: 0; }
-// So adding/removing this class is what slides the menu in and out.
+function openMobileNav() {
+  mainNav.classList.add('open');
+  menuToggle.classList.add('open');
+  navBackdrop.classList.add('open');
+  document.body.classList.add('nav-open');
+  menuToggle.setAttribute('aria-expanded', 'true');
+}
+
+function closeMobileNav() {
+  mainNav.classList.remove('open');
+  menuToggle.classList.remove('open');
+  navBackdrop.classList.remove('open');
+  document.body.classList.remove('nav-open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+}
+
+// Tapping the hamburger toggles the menu; the button itself morphs into
+// an X (see style.css) so it's clear the same button closes it again.
 menuToggle.addEventListener('click', () => {
-  mainNav.classList.toggle('open');
+  if (mainNav.classList.contains('open')) {
+    closeMobileNav();
+  } else {
+    openMobileNav();
+  }
+});
+
+// Tapping the dimmed backdrop, pressing Escape, or tapping any real nav
+// link all close the menu too — a slide-out menu with only one way to
+// close it feels stuck.
+navBackdrop.addEventListener('click', closeMobileNav);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+    closeMobileNav();
+  }
+});
+
+mainNav.querySelectorAll('a:not(.dropdown-toggle)').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
+      closeMobileNav();
+    }
+  });
 });
 
 // On mobile, the Portal dropdown needs to open on TAP instead of HOVER
@@ -20,7 +64,7 @@ const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdown = document.querySelector('.dropdown');
 
 dropdownToggle.addEventListener('click', (e) => {
-  if (window.innerWidth <= 860) {
+  if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
     e.preventDefault(); // stop the "#" link from jumping the page
     dropdown.classList.toggle('mobile-open');
   }
