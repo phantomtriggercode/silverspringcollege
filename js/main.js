@@ -66,27 +66,19 @@ function syncLangButtons() {
 }
 
 function setSiteLanguage(lang) {
+  // Google's widget reads this cookie on load and translates the page
+  // before it finishes rendering. Setting it and reloading is the
+  // reliable way to trigger a translation — simulating a change on
+  // Google's own <select> is fragile (a synthetic event only reaches
+  // Google's listener if it bubbles, and plain `new Event('change')`
+  // doesn't by default) and depends on the widget already being loaded.
   if (lang === 'en') {
-    // Google has no "translate back to original" option in its own
-    // select once a translation is active, so we just clear the cookie
-    // it reads on init and reload to get the untranslated page back.
     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
     document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${location.hostname}`;
-    location.reload();
-    return;
-  }
-
-  const combo = document.querySelector('#google_translate_element select.goog-te-combo');
-  if (combo) {
-    combo.value = lang;
-    combo.dispatchEvent(new Event('change'));
-    syncLangButtons();
   } else {
-    // Widget hasn't finished loading yet — set the cookie Google reads
-    // on init, then reload so the translation applies from the start.
     document.cookie = `googtrans=/en/${lang}; path=/`;
-    location.reload();
   }
+  location.reload();
 }
 
 document.querySelectorAll('.lang-quick-btn').forEach((btn) => {
