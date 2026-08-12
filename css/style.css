@@ -1112,6 +1112,24 @@ h1, h2, h3, h4 {
   font-size: 1rem;
 }
 
+/* Honeypot spam trap — positioned off-screen rather than display:none or
+   visibility:hidden, since spam bots specifically check for and skip
+   those. A real visitor tabbing through the form never lands on it
+   (tabindex="-1"), and screen readers skip it (aria-hidden). */
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-message {
+  color: #b3261e;
+  font-size: 0.85rem;
+  margin: -10px 0 16px;
+}
+
 .form-section-title {
   font-family: var(--font-heading);
   font-size: 1.15rem;
