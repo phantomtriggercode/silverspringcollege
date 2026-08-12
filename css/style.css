@@ -1278,6 +1278,12 @@ h1, h2, h3, h4 {
   letter-spacing: 0.4px;
 }
 
+.staff-phone {
+  color: var(--text-muted, #666);
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
 @media (max-width: 860px) {
   .staff-grid {
     grid-template-columns: repeat(2, 1fr);
