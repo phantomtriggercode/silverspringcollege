@@ -1112,6 +1112,68 @@ h1, h2, h3, h4 {
   font-size: 1rem;
 }
 
+.form-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--maroon-dark);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.form-section-title:not(:first-child) {
+  margin-top: 36px;
+}
+
+.form-section-note {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-top: -12px;
+  margin-bottom: 20px;
+}
+
+.form-radio-row {
+  display: flex;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.form-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form-radio input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--maroon);
+  cursor: pointer;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--charcoal);
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.form-checkbox input {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--maroon);
+  cursor: pointer;
+}
+
 /* ============================================
    RESPONSIVE (admissions.html)
    ============================================ */
