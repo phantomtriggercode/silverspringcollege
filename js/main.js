@@ -94,6 +94,36 @@
 })();
 
 // ============================================
+// CONTACT FORM SPAM GUARD
+// ============================================
+// No technique blocks 100% of bots, but this stops the overwhelming
+// majority without adding friction for real visitors: a honeypot field
+// (Formspree discards submissions where it's filled, server-side) plus a
+// minimum fill time — real people take at least a few seconds to type a
+// message; bots that script-fill and submit instantly don't.
+(function initContactFormSpamGuard() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const MIN_FILL_TIME_MS = 3000;
+  const loadedAt = Date.now();
+  const messageEl = document.getElementById('contact-form-message');
+
+  form.addEventListener('submit', (e) => {
+    const honeypot = form.querySelector('[name="_gotcha"]');
+    if (honeypot && honeypot.value) {
+      e.preventDefault();
+      return;
+    }
+
+    if (Date.now() - loadedAt < MIN_FILL_TIME_MS) {
+      e.preventDefault();
+      if (messageEl) messageEl.hidden = false;
+    }
+  });
+})();
+
+// ============================================
 // LANGUAGE SWITCHER (English / Français)
 // ============================================
 // No third-party service involved — every translatable element carries
