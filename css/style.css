@@ -223,6 +223,86 @@ h1, h2, h3, h4 {
   color: var(--maroon) !important;
 }
 
+/* --- Language switcher (EN/FR quick toggle + Google Translate select) --- */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-quick-btn {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--charcoal);
+  background: none;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-quick-btn:hover {
+  border-color: var(--maroon);
+  color: var(--maroon);
+}
+
+.lang-quick-btn.active {
+  background-color: var(--maroon);
+  border-color: var(--maroon);
+  color: var(--white);
+}
+
+.lang-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(0,0,0,0.15);
+  margin: 0 2px;
+}
+
+/* Google's widget injects its own markup (icon, tooltip, banner) inside
+   #google_translate_element; we surface only the plain <select> it
+   creates and style that ourselves so it reads as part of the site nav. */
+#google_translate_element .goog-te-gadget {
+  font-size: 0;
+  color: transparent;
+}
+
+#google_translate_element .goog-te-gadget-icon,
+#google_translate_element .goog-te-gadget > span > a {
+  display: none !important;
+}
+
+#google_translate_element select.goog-te-combo {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  background-color: var(--white);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+/* Hide the "powered by Google" banner iframe that otherwise pushes the
+   whole page down after a translation is applied, and the highlight
+   tooltip Google adds to translated text. */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
 /* --- Hamburger menu button (hidden on desktop) --- */
 .menu-toggle {
   display: none;
@@ -291,6 +371,12 @@ h1, h2, h3, h4 {
 
   .dropdown.mobile-open .dropdown-menu {
     display: block;
+  }
+
+  .lang-switcher {
+    padding: 16px 0;
+    margin-top: 8px;
+    border-top: 1px solid rgba(0,0,0,0.08);
   }
 }
 /* ============================================
