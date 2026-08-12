@@ -59,13 +59,15 @@ mainNav.querySelectorAll('a:not(.dropdown-toggle)').forEach((link) => {
 
 // On mobile, the Portal dropdown needs to open on TAP instead of HOVER
 // (phones don't have a mouse to "hover" with).
-// We only want this tap behavior on small screens, so we check window width.
+// The mobile-open toggle only makes sense on small screens, but this link
+// is href="#" purely as a hover trigger on desktop — it should never
+// actually navigate and leave "#" in the address bar, on any screen size.
 const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdown = document.querySelector('.dropdown');
 
 dropdownToggle.addEventListener('click', (e) => {
+  e.preventDefault();
   if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
-    e.preventDefault(); // stop the "#" link from jumping the page
     dropdown.classList.toggle('mobile-open');
   }
 });
