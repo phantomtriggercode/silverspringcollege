@@ -11,3 +11,17 @@ Workflow:
    site needs it) and wires it into the actual page.
 
 Feel free to delete a file from here once it's been processed and moved.
+
+## processed/
+
+Finished versions of the photos in this folder — Gemini watermark
+removed and upscaled 1.5x with mild sharpening, saved as web-friendly
+JPEGs. The originals above are left untouched. These aren't wired into
+any page yet; say the word and they can be placed (staff photos,
+gallery, homepage hero, etc.).
+
+Note on "upscale": there's no GPU available in this environment for true
+AI super-resolution (Real-ESRGAN and similar failed to install), so this
+is a high-quality Lanczos resize + light sharpening — it produces a
+crisper, larger image but doesn't invent new detail the camera didn't
+capture.
