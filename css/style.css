@@ -775,6 +775,18 @@ h1, h2, h3, h4 {
   gap: 20px;
 }
 
+.story-photo {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.story-photo img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
 .story-side .highlight-card a {
   color: var(--maroon);
   font-weight: 600;
@@ -891,6 +903,13 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.track-icon-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .track-icon {
@@ -1394,6 +1413,19 @@ h1, h2, h3, h4 {
 /* ============================================
    STAFF & ADMINISTRATORS
    ============================================ */
+.staff-team-photo {
+  max-height: 460px;
+  overflow: hidden;
+}
+
+.staff-team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
 .staff-section {
   padding: 90px 0;
 }
