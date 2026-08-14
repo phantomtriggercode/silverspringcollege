@@ -224,6 +224,11 @@
     document.querySelectorAll('.lang-select').forEach((select) => {
       select.value = lang;
     });
+
+    // Lets other modules (e.g. the admissions countdown) that render their
+    // own bilingual text via JS — rather than static data-fr markup —
+    // know a switch happened, so they can re-render in the new language.
+    document.dispatchEvent(new CustomEvent('scb:langchange', { detail: { lang } }));
   }
 
   function getStoredLanguage() {
@@ -255,4 +260,84 @@
       applyLanguage(select.value);
     });
   });
+})();
+
+// ============================================
+// ADMISSIONS TIMELINE (progress bar)
+// ============================================
+// Renders its own bilingual text (rather than static data-fr markup)
+// because the status and days-remaining depend on today's date, not
+// just the selected language — it recomputes on load and again
+// whenever the language switch fires.
+(function initAdmissionsTimeline() {
+  const cards = document.querySelectorAll('[data-admissions-start]');
+  if (!cards.length) return;
+
+  const DAY_MS = 24 * 60 * 60 * 1000;
+
+  const COPY = {
+    en: {
+      ongoing: 'Admissions Ongoing',
+      upcoming: 'Admissions Opening Soon',
+      closed: 'Admissions Closed',
+      daysLeft: (n) => `${n} day${n === 1 ? '' : 's'} left to apply`,
+      opensIn: (n) => (n <= 0 ? 'Opens today' : `Opens in ${n} day${n === 1 ? '' : 's'}`),
+      closedNote: 'This admissions cycle has ended',
+    },
+    fr: {
+      ongoing: 'Admissions en Cours',
+      upcoming: 'Ouverture Prochaine',
+      closed: 'Admissions Closes',
+      daysLeft: (n) => `${n} jour${n === 1 ? '' : 's'} restant${n === 1 ? '' : 's'} pour postuler`,
+      opensIn: (n) => (n <= 0 ? "Ouvre aujourd'hui" : `Ouvre dans ${n} jour${n === 1 ? '' : 's'}`),
+      closedNote: "Cette période d'admission est terminée",
+    },
+  };
+
+  function currentLang() {
+    return document.documentElement.lang === 'fr' ? 'fr' : 'en';
+  }
+
+  function render(card, lang) {
+    const start = new Date(`${card.dataset.admissionsStart}T00:00:00`);
+    const end = new Date(`${card.dataset.admissionsEnd}T23:59:59`);
+    const now = new Date();
+    const copy = COPY[lang] || COPY.en;
+
+    const statusEl = card.querySelector('[data-admissions-status]');
+    const labelEl = statusEl.querySelector('.status-label');
+    const daysEl = card.querySelector('[data-admissions-days]');
+    const fillEl = card.querySelector('[data-admissions-fill]');
+
+    let percent;
+    let state;
+    let daysText;
+
+    if (now < start) {
+      percent = 0;
+      state = 'upcoming';
+      daysText = copy.opensIn(Math.ceil((start - now) / DAY_MS));
+    } else if (now > end) {
+      percent = 100;
+      state = 'closed';
+      daysText = copy.closedNote;
+    } else {
+      percent = ((now - start) / (end - start)) * 100;
+      state = 'ongoing';
+      daysText = copy.daysLeft(Math.max(0, Math.ceil((end - now) / DAY_MS)));
+    }
+
+    statusEl.classList.remove('is-ongoing', 'is-upcoming', 'is-closed');
+    statusEl.classList.add(`is-${state}`);
+    labelEl.textContent = copy[state];
+    daysEl.textContent = daysText;
+    fillEl.style.width = `${Math.min(100, Math.max(0, Math.round(percent)))}%`;
+  }
+
+  function renderAll(lang) {
+    cards.forEach((card) => render(card, lang));
+  }
+
+  renderAll(currentLang());
+  document.addEventListener('scb:langchange', (e) => renderAll(e.detail.lang));
 })();
