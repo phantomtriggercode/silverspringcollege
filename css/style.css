@@ -156,7 +156,11 @@ h1, h2, h3, h4 {
 }
 
 /* --- Nav links --- */
-.main-nav ul {
+/* The direct-child combinator matters here: .dropdown-menu is also a
+   <ul> nested inside .main-nav, and it needs its own display rules
+   (including display:none while collapsed on mobile, below) — a plain
+   descendant selector would out-specificity that. */
+.main-nav > ul {
   display: flex;
   align-items: center;
   gap: 22px;
@@ -242,6 +246,27 @@ h1, h2, h3, h4 {
   border-color: var(--maroon);
 }
 
+/* Compact language switcher next to the hamburger button — only shown
+   on mobile (see media query below). On desktop the full-size one
+   inline in the nav (above) is the only one visible. */
+.header-lang-mobile {
+  display: none;
+}
+
+.header-lang-mobile .lang-select {
+  font-size: 0.8rem;
+  padding: 7px 8px;
+}
+
+/* Groups the mobile language switcher and the hamburger button together
+   at the right edge of the header. Harmless on desktop — both children
+   are display:none there until the media query below turns them on. */
+.header-mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 /* --- Hamburger menu button (hidden on desktop) --- */
 .menu-toggle {
   display: none;
@@ -313,14 +338,26 @@ h1, h2, h3, h4 {
     display: flex;
   }
 
+  /* The compact switcher next to the hamburger replaces the one that
+     used to live inline in this slide-out panel (see .lang-switcher
+     below) — no reason to make someone open the menu just to translate. */
+  .header-lang-mobile {
+    display: block;
+  }
+
   .main-nav {
     position: fixed;
     top: 0;
     right: -100%;
     width: 280px;
     height: 100vh;
-    background-color: var(--white);
-    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+    /* A rich brand gradient plus a soft gold glow instead of plain white
+       — makes it unmistakable that this slide-out panel is its own
+       surface, distinct from the white desktop header/nav bar. */
+    background:
+      radial-gradient(circle at 85% 12%, rgba(201,162,39,0.3), transparent 55%),
+      linear-gradient(165deg, var(--maroon-dark), var(--maroon) 60%, #3a0a0f);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.25);
     transition: right 0.3s ease;
     padding: 90px 24px 24px;
     overflow-y: auto;
@@ -351,7 +388,7 @@ h1, h2, h3, h4 {
     overflow: hidden;
   }
 
-  .main-nav ul {
+  .main-nav > ul {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
@@ -365,8 +402,32 @@ h1, h2, h3, h4 {
     display: block;
     padding: 12px 0;
     width: 100%;
+    color: var(--white);
   }
 
+  .main-nav > ul > li > a:hover {
+    color: var(--gold-light);
+  }
+
+  .main-nav a.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold-light);
+  }
+
+  /* The Portal button loses its usual maroon-on-white contrast against
+     this dark panel, so it flips to gold here instead. */
+  .main-nav .dropdown-toggle {
+    background-color: var(--gold);
+    color: var(--maroon-dark) !important;
+    text-align: center;
+  }
+
+  .main-nav .dropdown-toggle:hover {
+    background-color: var(--gold-light);
+  }
+
+  /* The Portal submenu becomes a light card floating on the dark panel,
+     rather than inheriting the (now unreadable) dark-on-dark styling. */
   .dropdown-menu {
     position: static;
     opacity: 1;
@@ -374,17 +435,25 @@ h1, h2, h3, h4 {
     transform: none;
     box-shadow: none;
     display: none;
-    padding-left: 12px;
+    background-color: rgba(255,255,255,0.96);
+    border-radius: 8px;
+    margin-top: 8px;
+    padding: 6px 0;
+  }
+
+  .dropdown-menu li a {
+    padding: 10px 16px;
   }
 
   .dropdown.mobile-open .dropdown-menu {
     display: block;
   }
 
-  .lang-switcher {
-    padding-top: 16px;
-    margin-top: 8px;
-    border-top: 1px solid rgba(0,0,0,0.08);
+  /* Replaced by .header-lang-mobile next to the hamburger — kept out of
+     the flow here rather than deleted, in case a future layout wants a
+     second switcher inside the panel too. */
+  .main-nav .lang-switcher {
+    display: none;
   }
 
   .lang-select {

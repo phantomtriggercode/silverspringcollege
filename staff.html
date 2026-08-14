@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/style.css?v=12">
   <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
@@ -21,12 +21,23 @@
         <span class="logo-text">Silverspring<br><small>College Beka</small></span>
       </a>
 
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span class="menu-toggle-icon" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
-        <span class="menu-toggle-text" data-fr="Fermer">Close</span>
-      </button>
+      <div class="header-mobile-controls">
+        <!-- Compact language switcher shown next to the hamburger on mobile;
+             the full one further down stays inline in the nav on desktop. -->
+        <div class="header-lang-mobile">
+          <select class="lang-select" aria-label="Choose language / Choisir la langue">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="menu-toggle-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="menu-toggle-text" data-fr="Fermer">Close</span>
+        </button>
+      </div>
 
       <nav class="main-nav" id="main-nav">
         <ul>
