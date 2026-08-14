@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Our stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=9">
 
   <!-- Browser tab icon -->
   <link rel="icon" type="image/png" href="images/logo.png">
@@ -83,21 +83,22 @@
         <a href="/about" class="btn btn-outline" data-fr="Découvrir SCB">Discover SCB</a>
       </div>
     </div>
+    <span class="scroll-cue" aria-hidden="true">⌄</span>
   </section>
 
   <!-- ============ QUICK STATS STRIP ============ -->
   <section class="stats-strip">
     <div class="container stats-grid">
       <div class="stat-item">
-        <span class="stat-number">2022</span>
+        <span class="stat-number" data-count="2022">0</span>
         <span class="stat-label" data-fr="Fondée">Founded</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">150+</span>
+        <span class="stat-number" data-count="150" data-suffix="+">0</span>
         <span class="stat-label" data-fr="Élèves">Students</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">4</span>
+        <span class="stat-number" data-count="4">0</span>
         <span class="stat-label" data-fr="Filières d'Études">Study Tracks</span>
       </div>
       <div class="stat-item">
@@ -106,10 +107,48 @@
       </div>
     </div>
   </section>
+
+  <!-- ============ CAMPUS GALLERY MOSAIC ============ -->
+  <section class="home-gallery">
+    <div class="container">
+      <div class="home-gallery-header">
+        <div>
+          <p class="section-eyebrow reveal" data-fr="La Vie à SCB">Life at SCB</p>
+          <h2 class="section-title reveal" data-fr="Un Campus Conçu pour Grandir">A Campus Built for Growth</h2>
+          <p class="section-body reveal" data-fr="Des salles de classe aux ateliers techniques, en passant par le terrain de sport — un aperçu d'une journée type à Silverspring College Beka.">From classrooms to technical workshops to the football pitch — a glimpse of a typical day at Silverspring College Beka.</p>
+        </div>
+        <a href="/gallery" class="btn btn-primary reveal" data-fr="Voir la Galerie Complète">View Full Gallery</a>
+      </div>
+
+      <div class="home-gallery-mosaic reveal-group">
+        <div class="mosaic-tile tile-feature reveal-scale">
+          <img src="images/gallery/campus-life.jpg" alt="Students on campus between classes">
+          <p class="mosaic-tile-caption" data-fr="Vie sur le Campus">Campus Life</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img src="images/gallery/school-assembly.jpg" alt="Students at morning assembly">
+          <p class="mosaic-tile-caption" data-fr="Rassemblement Scolaire">Morning Assembly</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img src="images/gallery/sports-activities.jpg" alt="Students football team">
+          <p class="mosaic-tile-caption" data-fr="Sports et Activités">Sports &amp; Activities</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img src="images/gallery/technical-workshop.jpg" alt="Technical track students at work">
+          <p class="mosaic-tile-caption" data-fr="Atelier Technique">Technical Workshop</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img src="images/gallery/youth-day.jpg" alt="Students celebrating youth day">
+          <p class="mosaic-tile-caption" data-fr="Jour de la Jeunesse">Youth Day</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ABOUT PREVIEW ============ -->
   <section class="about-preview">
     <div class="container about-grid">
-      <div class="about-text">
+      <div class="about-text reveal">
         <p class="section-eyebrow" data-fr="Qui Nous Sommes">Who We Are</p>
         <h2 class="section-title" data-fr="Une Éducation de Premier Ordre, Fondée sur la Discipline et la Détermination">A First-Class Education, Built on Discipline and Purpose</h2>
         <p class="section-body" data-fr="Silverspring College Beka a été fondé à Beka Matali, Ngaoundéré, par la Fondation Enow Njock pour donner aux jeunes Camerounais accès à un enseignement secondaire de qualité. Nous combinons une académie rigoureuse à de fortes valeurs morales, préparant chaque élève à passer les examens nationaux avec confiance et à s'orienter vers l'enseignement supérieur ou une carrière qualifiée avec détermination.">
@@ -126,7 +165,7 @@
         <a href="/about" class="btn btn-primary" data-fr="En Savoir Plus sur SCB">More About SCB</a>
       </div>
 
-      <div class="about-highlights">
+      <div class="about-highlights reveal">
         <div class="highlight-card">
           <span class="highlight-icon">🎓</span>
           <h3 data-fr="Notre Vision">Our Vision</h3>
@@ -141,33 +180,75 @@
     </div>
   </section>
 
+  <!-- ============ WHY CHOOSE SCB ============ -->
+  <section class="why-section">
+    <div class="container">
+      <p class="section-eyebrow center reveal" data-fr="Pourquoi les Familles Nous Choisissent">Why Families Choose Us</p>
+      <h2 class="section-title center reveal" data-fr="Ce Qui Distingue Silverspring College Beka">What Sets Silverspring College Beka Apart</h2>
+
+      <div class="why-grid reveal-group">
+        <div class="why-card reveal">
+          <div class="why-icon">🎖️</div>
+          <h3 data-fr="Culture de la Discipline">Discipline-First Culture</h3>
+          <p data-fr="Chaque élève est tenu à des normes élevées de conduite et de caractère, en classe comme en dehors.">Every learner is held to high standards of conduct and character, both inside and outside the classroom.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🏗️</div>
+          <h3 data-fr="Formation Technique Pratique">Hands-On Technical Training</h3>
+          <p data-fr="De vrais ateliers, de vrais outils — nos élèves de la filière Technique construisent et réparent, ils n'en lisent pas seulement.">Real workshops and real tools — our Technical track students build, wire, and repair, not just read about it.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">👨‍🏫</div>
+          <h3 data-fr="Petites Classes, Attention Individuelle">Small, Attentive Classrooms</h3>
+          <p data-fr="Un faible ratio élèves-enseignant garantit qu'aucun élève n'est laissé pour compte.">Low student-to-teacher ratios mean no learner gets left behind.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🌍</div>
+          <h3 data-fr="Un Chemin au-delà du Cameroun">A Pathway Beyond Cameroon</h3>
+          <p data-fr="La certification GCE et nos partenariats actifs ouvrent des portes vers des universités à l'étranger.">GCE certification and active partnerships open doors to universities abroad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO BANNER: OUR PEOPLE ============ -->
+  <section class="photo-banner" style="background-image:url('images/staff/team-photo.jpg');">
+    <div class="photo-banner-overlay"></div>
+    <div class="container photo-banner-content reveal">
+      <p class="section-eyebrow" data-fr="Notre Communauté">Our Community</p>
+      <h2 data-fr="Un Personnel Dévoué à Chaque Élève">A Staff Devoted to Every Learner</h2>
+      <p data-fr="Derrière chaque élève de SCB se trouve une équipe d'enseignants et d'administrateurs déterminés à voir chacun d'eux réussir.">Behind every SCB student is a team of teachers and administrators determined to see each one succeed.</p>
+      <a href="/staff" class="btn btn-primary" data-fr="Rencontrer Notre Personnel">Meet Our Staff</a>
+    </div>
+  </section>
+
   <!-- ============ PROGRAMS PREVIEW ============ -->
   <section class="programs-preview">
     <div class="container">
-      <p class="section-eyebrow center" data-fr="Notre Programme">Our Curriculum</p>
-      <h2 class="section-title center" data-fr="Trois Filières d'Études, une Seule Norme d'Excellence">Three Study Tracks, One Standard of Excellence</h2>
+      <p class="section-eyebrow center reveal" data-fr="Notre Programme">Our Curriculum</p>
+      <h2 class="section-title center reveal" data-fr="Trois Filières d'Études, une Seule Norme d'Excellence">Three Study Tracks, One Standard of Excellence</h2>
 
-      <div class="programs-grid">
-        <div class="program-card">
+      <div class="programs-grid reveal-group">
+        <div class="program-card reveal">
           <div class="program-icon">📘</div>
           <h3 data-fr="Arts et Sciences">Arts &amp; Science</h3>
           <p data-fr="Matières académiques générales menant aux certificats GCE Ordinary Level et Advanced Level.">General academic subjects leading to the GCE Ordinary and Advanced Level certificates.</p>
         </div>
 
-        <div class="program-card">
-          <div class="program-icon">🛠️</div>
+        <div class="program-card reveal">
+          <img src="images/academics/technical-track.jpg" alt="Technical track students at work" class="program-photo">
           <h3 data-fr="Technique">Technical</h3>
           <p data-fr="Bâtiment et Construction, Systèmes Électriques, et Mécanique Automobile — menant à la certification ITVE et TVEE.">Building &amp; Construction, Electrical Power Systems, and Auto Mobile Mechanics — leading to ITVE and TVEE certification.</p>
         </div>
 
-        <div class="program-card">
+        <div class="program-card reveal">
           <div class="program-icon">💼</div>
           <h3 data-fr="Commercial">Commercial</h3>
           <p data-fr="Comptabilité, Marketing et Économie Familiale pour les élèves visant une carrière dans les affaires.">Accountancy, Marketing, and Home Economics for students pursuing business-focused careers.</p>
         </div>
 
-        <div class="program-card">
-          <div class="program-icon">💻</div>
+        <div class="program-card reveal">
+          <img src="images/academics/computer-science-track.jpg" alt="Computer lab at Silverspring College Beka" class="program-photo">
           <h3 data-fr="Informatique">Computer Science</h3>
           <p data-fr="Informatique et applications TIC, préparant les élèves à un monde numérique et à des carrières technologiques.">Computer Science and ICT applications, preparing learners for a digital-first world and tech-driven careers.</p>
         </div>
@@ -175,6 +256,20 @@
 
       <div class="programs-cta">
         <a href="/academics" class="btn btn-primary" data-fr="Découvrir le Programme Complet">Explore Full Curriculum</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="home-cta" style="background-image:url('images/gallery/campus-grounds.jpg');">
+    <div class="home-cta-overlay"></div>
+    <div class="container home-cta-content reveal">
+      <p class="section-eyebrow" data-fr="Rejoignez SCB">Join SCB</p>
+      <h2 data-fr="Prêt à Rejoindre la Prochaine Génération de Leaders ?">Ready to Join the Next Generation of Leaders?</h2>
+      <p data-fr="Les candidatures pour la prochaine année académique sont ouvertes. Faites le premier pas vers l'avenir de votre enfant.">Applications for the upcoming academic year are open. Take the first step toward your child's future.</p>
+      <div class="hero-buttons">
+        <a href="/admissions" class="btn btn-primary" data-fr="Faire une Demande d'Admission">Apply for Admission</a>
+        <a href="/contact" class="btn btn-outline" data-fr="Nous Contacter">Contact Us</a>
       </div>
     </div>
   </section>
@@ -227,6 +322,6 @@
       </div>
     </div>
   </footer>
-<script src="js/main.js?v=6"></script>
+<script src="js/main.js?v=7"></script>
 </body>
 </html>
