@@ -124,6 +124,77 @@
 })();
 
 // ============================================
+// SCROLL-REVEAL ANIMATIONS (homepage)
+// ============================================
+// Elements tagged .reveal / .reveal-scale fade+slide in the first time
+// they cross into the viewport. Respects reduced-motion by just leaving
+// everything visible (the CSS media query already handles the styling
+// side of that; this only controls the trigger).
+(function initScrollReveal() {
+  const targets = document.querySelectorAll('.reveal, .reveal-scale');
+  if (!targets.length) return;
+
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    targets.forEach((el) => el.classList.add('revealed'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  targets.forEach((el) => observer.observe(el));
+})();
+
+// ============================================
+// STAT COUNT-UP (homepage stats strip)
+// ============================================
+(function initCountUp() {
+  const counters = document.querySelectorAll('.stat-number[data-count]');
+  if (!counters.length) return;
+
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = target + suffix;
+      return;
+    }
+    const duration = 1400;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    counters.forEach(animateCounter);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach((el) => observer.observe(el));
+})();
+
+// ============================================
 // LANGUAGE SWITCHER (English / Français)
 // ============================================
 // No third-party service involved — every translatable element carries
