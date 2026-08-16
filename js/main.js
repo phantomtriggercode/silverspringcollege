@@ -231,16 +231,40 @@
     document.dispatchEvent(new CustomEvent('scb:langchange', { detail: { lang } }));
   }
 
+  // Only EN/FR exist on this site, so browser detection just needs to
+  // answer "does the visitor prefer French?" — anything else falls back
+  // to English. Checks navigator.languages (the visitor's full ranked
+  // preference list) before the single-value navigator.language, since
+  // a visitor might have French listed above English or vice versa.
+  function detectBrowserLanguage() {
+    const candidates = (navigator.languages && navigator.languages.length)
+      ? navigator.languages
+      : [navigator.language || navigator.userLanguage || 'en'];
+
+    const prefersFrench = candidates.some((lang) => (
+      typeof lang === 'string' && lang.toLowerCase().startsWith('fr')
+    ));
+
+    return prefersFrench ? 'fr' : 'en';
+  }
+
   function getStoredLanguage() {
     // Some mobile browsers (Safari private mode, in-app browsers like
     // Instagram/Facebook's) throw on localStorage access instead of just
     // returning null — catch that so it can't stop translation from
     // working for this page view.
     try {
-      return localStorage.getItem(LANG_STORAGE_KEY) === 'fr' ? 'fr' : 'en';
+      const stored = localStorage.getItem(LANG_STORAGE_KEY);
+      // A manual choice (from the switcher) always wins on repeat visits
+      // — only fall back to the browser's language on a first visit.
+      if (stored === 'fr' || stored === 'en') {
+        return stored;
+      }
     } catch (e) {
-      return 'en';
+      // Storage blocked — fall through to browser detection below.
     }
+
+    return detectBrowserLanguage();
   }
 
   function storeLanguage(lang) {
