@@ -2377,3 +2377,94 @@ h1, h2, h3, h4 {
     min-height: 380px;
   }
 }
+
+/* ============================================
+   GCE RESULTS — NAME / CENTER NUMBER SEARCH
+   ============================================ */
+.results-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--white);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 6px;
+}
+
+.results-search-icon {
+  font-size: 1rem;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.results-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--charcoal);
+}
+
+.results-search-input::placeholder {
+  color: var(--gray);
+}
+
+.results-search-input:disabled {
+  cursor: not-allowed;
+}
+
+.results-search-status {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin: 8px 2px 0;
+}
+
+.results-search-results {
+  margin: 10px 0 0;
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background-color: var(--white);
+}
+
+.results-search-result {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--charcoal);
+  font-size: 0.88rem;
+}
+
+.results-search-result:last-child {
+  border-bottom: none;
+}
+
+.results-search-result:hover,
+.results-search-result:focus-visible {
+  background-color: var(--cream);
+}
+
+.results-search-result strong {
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.results-search-result .result-page-tag {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 3px;
+}
