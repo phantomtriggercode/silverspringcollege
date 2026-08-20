@@ -107,6 +107,19 @@ h1, h2, h3, h4 {
   color: var(--maroon);
 }
 
+/* Same outline treatment as .btn-outline, but for light backgrounds
+   (that one assumes it's sitting on a dark photo/gradient). */
+.btn-outline-maroon {
+  background-color: transparent;
+  border-color: var(--maroon);
+  color: var(--maroon);
+}
+
+.btn-outline-maroon:hover {
+  background-color: var(--maroon);
+  color: var(--white);
+}
+
 
 /* ============================================
    HEADER / NAVIGATION
@@ -2058,5 +2071,309 @@ h1, h2, h3, h4 {
   }
   .hero + .admissions-timeline .admissions-timeline-card {
     margin-top: -40px;
+  }
+}
+
+/* ============================================
+   GCE RESULTS — HOMEPAGE ANNOUNCEMENT BAR
+   ============================================ */
+/* A second row inside the sticky header (homepage only), so it scrolls
+   and sticks together with the header automatically — no manual offset
+   math needed to keep two separately-sticky elements aligned. */
+.gce-announcement-bar {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  padding: 10px 0;
+}
+
+.gce-announcement-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gce-announcement-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--maroon-dark);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  animation: gceBtnPulse 2.4s ease-in-out infinite;
+}
+
+.gce-announcement-btn:hover {
+  background-color: var(--maroon);
+}
+
+@keyframes gceBtnPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74,12,18,0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(74,12,18,0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gce-announcement-btn {
+    animation: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .gce-announcement-btn {
+    font-size: 0.82rem;
+    padding: 8px 16px;
+    text-align: center;
+  }
+}
+
+/* ============================================
+   GCE RESULTS — LEVEL PICKER MODAL
+   ============================================ */
+.gce-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.gce-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gce-modal {
+  background-color: var(--white);
+  border-radius: 14px;
+  max-width: 440px;
+  width: 100%;
+  padding: 38px 32px 32px;
+  text-align: center;
+  position: relative;
+  transform: translateY(16px);
+  transition: transform 0.25s ease;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+}
+
+.gce-modal-overlay.open .gce-modal {
+  transform: translateY(0);
+}
+
+.gce-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--gray);
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.gce-modal-close:hover {
+  background-color: var(--cream);
+}
+
+.gce-modal h3 {
+  color: var(--maroon-dark);
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.gce-modal p {
+  color: var(--gray);
+  font-size: 0.92rem;
+  margin-bottom: 26px;
+}
+
+.gce-modal-options {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.gce-modal-option {
+  flex: 1;
+  min-width: 150px;
+  border: 2px solid var(--cream);
+  border-radius: 10px;
+  padding: 22px 16px;
+  text-align: center;
+  color: var(--charcoal);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.gce-modal-option:hover {
+  border-color: var(--gold);
+  background-color: var(--cream);
+  transform: translateY(-3px);
+}
+
+.gce-modal-option-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.gce-modal-option strong {
+  display: block;
+  color: var(--maroon-dark);
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.gce-modal-option span {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+@media (max-width: 480px) {
+  .gce-modal-options {
+    flex-direction: column;
+  }
+}
+
+/* ============================================
+   GCE RESULTS PAGE
+   ============================================ */
+.results-section {
+  padding: 70px 0 90px;
+}
+
+.results-section .section-body {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.results-picker {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 36px 0 34px;
+}
+
+.results-tab {
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 2px solid var(--maroon);
+  color: var(--maroon);
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  background-color: var(--white);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.results-tab:hover {
+  transform: translateY(-2px);
+}
+
+.results-tab.active {
+  background-color: var(--maroon);
+  color: var(--white);
+}
+
+.results-viewer-card {
+  background-color: var(--cream);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.results-viewer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.results-viewer-toolbar h3 {
+  color: var(--maroon-dark);
+  font-size: 1.15rem;
+}
+
+.results-viewer-toolbar .btn {
+  padding: 10px 22px;
+  font-size: 0.85rem;
+}
+
+/* Hidden (via JS) whenever the current level's PDF isn't uploaded yet,
+   so there's nothing to download. */
+.results-viewer-toolbar .btn.is-hidden {
+  display: none;
+}
+
+.results-iframe-wrap {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 480px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.results-iframe-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Without this, the [hidden] attribute (toggled by JS) has no effect —
+   a plain class selector like the one above beats the browser's default
+   [hidden]{display:none} UA rule, so it must be restated explicitly here
+   with matching specificity to actually win. Same for the placeholder
+   below. */
+.results-iframe-wrap iframe[hidden] {
+  display: none;
+}
+
+.results-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  color: var(--gray);
+}
+
+.results-placeholder[hidden] {
+  display: none;
+}
+
+.results-placeholder-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 700px) {
+  .results-iframe-wrap {
+    height: 65vh;
+    min-height: 380px;
   }
 }

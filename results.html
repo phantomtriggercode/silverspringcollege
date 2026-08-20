@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Staff & Administrators | Silverspring College Beka</title>
-  <meta name="description" content="Meet the staff and administrators of Silverspring College Beka.">
+  <title>2026 GCE Results | Silverspring College Beka</title>
+  <meta name="description" content="View Silverspring College Beka's 2026 GCE Ordinary Level and Advanced Level results online.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
         <ul>
           <li><a href="/" data-fr="Accueil">Home</a></li>
           <li><a href="/about" data-fr="À propos">About</a></li>
-          <li><a href="/staff" class="active" data-fr="Personnel">Staff</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
           <li><a href="/academics" data-fr="Académique">Academics</a></li>
           <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
           <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
@@ -71,89 +71,35 @@
   <!-- ============ PAGE BANNER ============ -->
   <section class="page-banner">
     <div class="container">
-      <p class="hero-eyebrow" data-fr="Les Personnes Derrière SCB">The People Behind SCB</p>
-      <h1 data-fr="Personnel et Administrateurs">Staff &amp; Administrators</h1>
-      <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Personnel">Staff</span></p>
+      <p class="hero-eyebrow" data-fr="Résultats d'Examen">Exam Results</p>
+      <h1 data-fr="Résultats du GCE 2026">2026 GCE Results</h1>
+      <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Résultats">Results</span></p>
     </div>
   </section>
 
-  <!-- ============ TEAM PHOTO ============ -->
-  <section class="staff-team-photo">
-    <img src="images/staff/team-photo.jpg" alt="Silverspring College Beka staff on campus">
-  </section>
-
-  <!-- ============ ADMINISTRATION ============ -->
-  <section class="staff-section">
+  <!-- ============ RESULTS VIEWER ============ -->
+  <section class="results-section">
     <div class="container">
-      <p class="section-eyebrow center" data-fr="Direction">Leadership</p>
-      <h2 class="section-title center" data-fr="Administration Scolaire">School Administration</h2>
+      <p class="section-eyebrow center" data-fr="Consulter les Résultats">View Results</p>
+      <h2 class="section-title center" data-fr="Résultats du GCE Ordinary et Advanced Level">GCE Ordinary &amp; Advanced Level Results</h2>
+      <p class="section-body center" data-fr="Choisissez un niveau ci-dessous pour consulter le document officiel des résultats directement sur cette page — aucun téléchargement n'est nécessaire.">Choose a level below to view the official results document right on this page — no download required.</p>
 
-      <div class="staff-grid">
-        <!--
-          Each card below is a placeholder. To add a REAL staff photo:
-          replace the <div class="staff-photo-placeholder">👤</div>
-          with: <img src="images/staff-name.jpg" alt="Full Name" class="staff-photo">
-          Replace [Phone Number] with the staff member's number (up to 13 digits, e.g. +237 6XX XXX XXX).
-        -->
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Proviseur">Principal</p>
-          <p class="staff-phone">[Phone Number]</p>
-        </div>
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Censeur">Vice Principal</p>
-          <p class="staff-phone">[Phone Number]</p>
-        </div>
-        <div class="staff-card">
-          <img src="images/staff/discipline-master.jpg" alt="Discipline Master" class="staff-photo">
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Surveillant Général">Discipline Master</p>
-          <p class="staff-phone">[Phone Number]</p>
-        </div>
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Économe">Bursar</p>
-          <p class="staff-phone">[Phone Number]</p>
-        </div>
+      <div class="results-picker" role="tablist" aria-label="Choose a results level">
+        <button type="button" class="results-tab" data-level="ol" role="tab" data-fr="Résultats du Niveau O">O Level Results</button>
+        <button type="button" class="results-tab" data-level="al" role="tab" data-fr="Résultats du Niveau A">A Level Results</button>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ TEACHING STAFF ============ -->
-  <section class="staff-section staff-alt">
-    <div class="container">
-      <p class="section-eyebrow center" data-fr="Éducateurs">Educators</p>
-      <h2 class="section-title center" data-fr="Notre Corps Enseignant">Our Teaching Staff</h2>
-      <p class="section-body center" data-fr="Des enseignants dévoués dans les quatre filières d'études — Arts et Sciences, Technique, Commercial et Informatique.">Dedicated teachers across all four study tracks — Arts &amp; Science, Technical, Commercial, and Computer Science.</p>
-
-      <div class="staff-grid">
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Chef de Filière Arts et Sciences">Head of Arts &amp; Science</p>
-          <p class="staff-phone">[Phone Number]</p>
+      <div class="results-viewer-card reveal">
+        <div class="results-viewer-toolbar">
+          <h3 id="results-viewer-title" data-fr="Résultats du Niveau O 2026">2026 O Level Results</h3>
+          <a href="results/ol-2026.pdf" id="results-download-link" class="btn btn-outline-maroon" download data-fr="Télécharger le PDF">Download PDF</a>
         </div>
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Chef de Filière Technique">Head of Technical</p>
-          <p class="staff-phone">[Phone Number]</p>
-        </div>
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Chef de Filière Commercial">Head of Commercial</p>
-          <p class="staff-phone">[Phone Number]</p>
-        </div>
-        <div class="staff-card">
-          <div class="staff-photo-placeholder">👤</div>
-          <h3>[Name]</h3>
-          <p class="staff-role" data-fr="Chef de Filière Informatique">Head of Computer Science</p>
-          <p class="staff-phone">[Phone Number]</p>
+        <div class="results-iframe-wrap" id="results-iframe-wrap">
+          <iframe id="results-frame" title="GCE results document" hidden></iframe>
+          <div class="results-placeholder" id="results-placeholder">
+            <span class="results-placeholder-icon" aria-hidden="true">📄</span>
+            <p data-fr="Ces résultats n'ont pas encore été publiés. Revenez consulter cette page bientôt.">These results haven't been published yet. Check back here soon.</p>
+          </div>
         </div>
       </div>
     </div>
