@@ -413,6 +413,9 @@
   const searchInput = document.getElementById('results-search-input');
   const searchStatus = document.getElementById('results-search-status');
   const searchResults = document.getElementById('results-search-results');
+  const mobilePrompt = document.getElementById('results-mobile-prompt');
+  const mobilePromptText = document.getElementById('results-mobile-prompt-text');
+  const openTabLink = document.getElementById('results-open-tab-link');
   if (!tabs.length || !frame) return;
 
   // Fits the page to the width of the viewer and hides the page-thumbnail
@@ -420,6 +423,17 @@
   // these are the same URL fragment params Adobe Reader popularized, which
   // Chromium's viewer still honors.
   const PDF_VIEW_PARAMS = 'toolbar=1&navpanes=0&view=FitH';
+
+  // A results PDF can be either a single school's short document or a full
+  // regional/national bulletin covering hundreds of schools — we've seen
+  // documents past 350 pages. Phones don't have the RAM/CPU to lay out and
+  // render that inline (it just goes blank), even though desktops handle
+  // it fine. Past this many pages, mobile gets a lightweight "open in a
+  // new tab" prompt instead of the embedded viewer.
+  const LARGE_DOC_PAGE_THRESHOLD = 25;
+  // Matches the breakpoint already used for .results-iframe-wrap's mobile
+  // sizing in style.css.
+  const MOBILE_QUERY = '(max-width: 700px)';
 
   const COPY = {
     en: {
@@ -430,6 +444,7 @@
       searchUnavailable: 'Search isn’t available for this document.',
       resultCount: (n) => `${n} match${n === 1 ? '' : 'es'} found`,
       pageLabel: (n) => `Page ${n}`,
+      mobilePrompt: (n) => `This document has ${n} pages and is too large to preview smoothly on a phone. Search for your name or center number above, or open the full document in a new tab.`,
     },
     fr: {
       ol: 'Résultats du Niveau O 2026',
@@ -439,12 +454,17 @@
       searchUnavailable: 'La recherche n’est pas disponible pour ce document.',
       resultCount: (n) => `${n} résultat${n === 1 ? '' : 's'} trouvé${n === 1 ? '' : 's'}`,
       pageLabel: (n) => `Page ${n}`,
+      mobilePrompt: (n) => `Ce document comporte ${n} pages et est trop volumineux pour un aperçu fluide sur téléphone. Recherchez votre nom ou numéro de centre ci-dessus, ou ouvrez le document complet dans un nouvel onglet.`,
     },
   };
 
   let currentLevel = 'ol';
-  // Per-level cache of extracted page text, so switching tabs back and
-  // forth (or repeated searches) doesn't re-parse the PDF every time.
+  let usingMobilePrompt = false;
+  let mobilePromptPageCount = 0;
+  // Per-level cache of the pdf.js document handle and its extracted page
+  // text, so switching tabs back and forth (or repeated searches) doesn't
+  // re-parse the PDF every time.
+  const pdfDocCache = { ol: null, al: null };
   const textCache = { ol: null, al: null };
   let pdfJsLoadPromise = null;
 
@@ -458,6 +478,10 @@
 
   function pdfPathFor(level) {
     return `results/${level}-2026.pdf`;
+  }
+
+  function isMobileViewport() {
+    return window.matchMedia(MOBILE_QUERY).matches;
   }
 
   function renderTitle() {
@@ -474,6 +498,76 @@
       searchResults.hidden = true;
       searchResults.innerHTML = '';
     }
+  }
+
+  // pdf.js is used both for the search box's text extraction and (on
+  // mobile, for large documents) to check the page count before deciding
+  // whether to embed the iframe at all. Loaded once and reused.
+  function ensurePdfJsLoaded() {
+    if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+    if (pdfJsLoadPromise) return pdfJsLoadPromise;
+
+    pdfJsLoadPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'js/vendor/pdfjs/pdf.min.js';
+      script.onload = () => {
+        if (!window.pdfjsLib) {
+          reject(new Error('pdf.js failed to initialize'));
+          return;
+        }
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/vendor/pdfjs/pdf.worker.min.js';
+        resolve(window.pdfjsLib);
+      };
+      script.onerror = () => reject(new Error('pdf.js failed to load'));
+      document.head.appendChild(script);
+    });
+
+    return pdfJsLoadPromise;
+  }
+
+  function loadPdfDocument(level) {
+    if (pdfDocCache[level]) return pdfDocCache[level];
+    const path = pdfPathFor(level);
+    pdfDocCache[level] = ensurePdfJsLoaded().then((pdfjsLib) => pdfjsLib.getDocument(path).promise);
+    return pdfDocCache[level];
+  }
+
+  function extractText(level) {
+    if (textCache[level]) return Promise.resolve(textCache[level]);
+
+    return loadPdfDocument(level).then((pdf) => {
+      const pageNumbers = Array.from({ length: pdf.numPages }, (_, i) => i + 1);
+      return Promise.all(pageNumbers.map((num) => (
+        pdf.getPage(num).then((page) => (
+          page.getTextContent().then((content) => ({
+            pageNum: num,
+            text: content.items.map((item) => item.str).join(' '),
+          }))
+        ))
+      ))).then((pages) => {
+        textCache[level] = pages;
+        return pages;
+      });
+    });
+  }
+
+  function showEmbeddedViewer(path) {
+    usingMobilePrompt = false;
+    if (mobilePrompt) mobilePrompt.hidden = true;
+    frame.src = `${path}#${PDF_VIEW_PARAMS}`;
+    frame.hidden = false;
+    if (placeholder) placeholder.hidden = true;
+  }
+
+  function showMobilePrompt(path, numPages) {
+    usingMobilePrompt = true;
+    mobilePromptPageCount = numPages;
+    frame.hidden = true;
+    frame.src = 'about:blank';
+    if (placeholder) placeholder.hidden = true;
+    if (mobilePromptText) mobilePromptText.textContent = copy().mobilePrompt(numPages);
+    if (openTabLink) openTabLink.href = `${path}#${PDF_VIEW_PARAMS}`;
+    if (mobilePrompt) mobilePrompt.hidden = false;
   }
 
   function loadLevel(level, { pushState = true } = {}) {
@@ -500,6 +594,8 @@
 
     frame.hidden = true;
     frame.src = 'about:blank';
+    usingMobilePrompt = false;
+    if (mobilePrompt) mobilePrompt.hidden = true;
     if (placeholder) placeholder.hidden = false;
     if (downloadLink) downloadLink.classList.add('is-hidden');
 
@@ -508,14 +604,28 @@
         // Only trust it if the level tab hasn't changed again while this
         // request was in flight (fast tab-switching would otherwise let
         // a stale response show the wrong PDF).
-        if (currentLevel !== level) return;
-        if (res.ok) {
-          frame.src = `${path}#${PDF_VIEW_PARAMS}`;
-          frame.hidden = false;
-          if (placeholder) placeholder.hidden = true;
-          if (downloadLink) downloadLink.classList.remove('is-hidden');
-          if (searchInput) searchInput.disabled = false;
-        }
+        if (currentLevel !== level || !res.ok) return;
+
+        if (downloadLink) downloadLink.classList.remove('is-hidden');
+        if (searchInput) searchInput.disabled = false;
+
+        loadPdfDocument(level)
+          .then((pdf) => {
+            if (currentLevel !== level) return;
+            if (pdf.numPages > LARGE_DOC_PAGE_THRESHOLD && isMobileViewport()) {
+              showMobilePrompt(path, pdf.numPages);
+            } else {
+              showEmbeddedViewer(path);
+            }
+          })
+          .catch(() => {
+            // Couldn't determine the page count (pdf.js failed to parse
+            // it, or the library failed to load) — fall back to the plain
+            // embedded viewer rather than leaving the page stuck on the
+            // placeholder. Worst case this is the same experience as
+            // before pdf.js was involved at all.
+            if (currentLevel === level) showEmbeddedViewer(path);
+          });
       })
       .catch(() => {
         // Treat a network error the same as "not found yet" — the
@@ -525,55 +635,12 @@
 
   function jumpToPage(pageNum) {
     const path = pdfPathFor(currentLevel);
-    frame.src = `${path}#${PDF_VIEW_PARAMS}&page=${pageNum}`;
-  }
-
-  // pdf.js is only needed for the search box's text extraction — the PDF
-  // itself is always shown via the browser's native viewer above. Loaded
-  // on first use (not on every page load) so visitors who never search
-  // never pay for the ~1.5MB library.
-  function ensurePdfJsLoaded() {
-    if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
-    if (pdfJsLoadPromise) return pdfJsLoadPromise;
-
-    pdfJsLoadPromise = new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'js/vendor/pdfjs/pdf.min.js';
-      script.onload = () => {
-        if (!window.pdfjsLib) {
-          reject(new Error('pdf.js failed to initialize'));
-          return;
-        }
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/vendor/pdfjs/pdf.worker.min.js';
-        resolve(window.pdfjsLib);
-      };
-      script.onerror = () => reject(new Error('pdf.js failed to load'));
-      document.head.appendChild(script);
-    });
-
-    return pdfJsLoadPromise;
-  }
-
-  function extractText(level) {
-    if (textCache[level]) return Promise.resolve(textCache[level]);
-
-    const path = pdfPathFor(level);
-    return ensurePdfJsLoaded().then((pdfjsLib) => (
-      pdfjsLib.getDocument(path).promise.then((pdf) => {
-        const pageNumbers = Array.from({ length: pdf.numPages }, (_, i) => i + 1);
-        return Promise.all(pageNumbers.map((num) => (
-          pdf.getPage(num).then((page) => (
-            page.getTextContent().then((content) => ({
-              pageNum: num,
-              text: content.items.map((item) => item.str).join(' '),
-            }))
-          ))
-        ))).then((pages) => {
-          textCache[level] = pages;
-          return pages;
-        });
-      })
-    ));
+    const url = `${path}#${PDF_VIEW_PARAMS}&page=${pageNum}`;
+    if (usingMobilePrompt) {
+      window.open(url, '_blank', 'noopener');
+    } else {
+      frame.src = url;
+    }
   }
 
   function buildSnippet(text, query, pageNum) {
@@ -686,6 +753,9 @@
     // Re-run so status/result text (which is JS-rendered, not data-fr)
     // updates too, if a search is currently active.
     if (searchInput && searchInput.value.trim()) runSearch(searchInput.value.trim());
+    if (usingMobilePrompt && mobilePromptText) {
+      mobilePromptText.textContent = copy().mobilePrompt(mobilePromptPageCount);
+    }
   });
 
   const initialLevel = new URLSearchParams(window.location.search).get('level');

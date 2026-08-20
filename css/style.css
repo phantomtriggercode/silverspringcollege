@@ -2371,6 +2371,33 @@ h1, h2, h3, h4 {
   margin-bottom: 16px;
 }
 
+.results-mobile-prompt {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 30px;
+  color: var(--gray);
+  background-color: var(--cream);
+}
+
+.results-mobile-prompt[hidden] {
+  display: none;
+}
+
+.results-mobile-prompt-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.results-mobile-prompt p {
+  max-width: 360px;
+  margin-bottom: 22px;
+}
+
 @media (max-width: 700px) {
   .results-iframe-wrap {
     height: 65vh;
