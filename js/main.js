@@ -365,3 +365,130 @@
   renderAll(currentLang());
   document.addEventListener('scb:langchange', (e) => renderAll(e.detail.lang));
 })();
+
+// ============================================
+// GCE RESULTS — HOMEPAGE PICKER MODAL
+// ============================================
+(function initGceResultsModal() {
+  const trigger = document.getElementById('gce-announcement-btn');
+  const overlay = document.getElementById('gce-modal-overlay');
+  if (!trigger || !overlay) return;
+
+  const closeBtn = document.getElementById('gce-modal-close');
+
+  function openModal() {
+    overlay.classList.add('open');
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+  }
+
+  trigger.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  // Clicking the dark backdrop (not the card itself) closes it too.
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+})();
+
+// ============================================
+// GCE RESULTS PAGE (results.html)
+// ============================================
+// Since this is a static site with no server to check file existence,
+// each level is verified client-side with a HEAD request before the
+// iframe is shown — that way a not-yet-uploaded PDF shows a friendly
+// placeholder instead of the browser's blank/broken viewer.
+(function initResultsPage() {
+  const tabs = document.querySelectorAll('.results-tab');
+  const frame = document.getElementById('results-frame');
+  const placeholder = document.getElementById('results-placeholder');
+  const downloadLink = document.getElementById('results-download-link');
+  const titleEl = document.getElementById('results-viewer-title');
+  if (!tabs.length || !frame) return;
+
+  const COPY = {
+    en: {
+      ol: '2026 O Level Results',
+      al: '2026 A Level Results',
+    },
+    fr: {
+      ol: 'Résultats du Niveau O 2026',
+      al: 'Résultats du Niveau A 2026',
+    },
+  };
+
+  let currentLevel = 'ol';
+
+  function currentLang() {
+    return document.documentElement.lang === 'fr' ? 'fr' : 'en';
+  }
+
+  function pdfPathFor(level) {
+    return `results/${level}-2026.pdf`;
+  }
+
+  function renderTitle() {
+    const copy = COPY[currentLang()] || COPY.en;
+    if (titleEl) titleEl.textContent = copy[currentLevel];
+  }
+
+  function loadLevel(level, { pushState = true } = {}) {
+    currentLevel = level === 'al' ? 'al' : 'ol';
+
+    tabs.forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.level === currentLevel);
+    });
+
+    renderTitle();
+
+    const path = pdfPathFor(currentLevel);
+
+    if (downloadLink) {
+      downloadLink.href = path;
+    }
+
+    if (pushState && window.history && window.history.replaceState) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('level', currentLevel);
+      window.history.replaceState(null, '', url);
+    }
+
+    frame.hidden = true;
+    frame.src = 'about:blank';
+    if (placeholder) placeholder.hidden = false;
+    if (downloadLink) downloadLink.classList.add('is-hidden');
+
+    fetch(path, { method: 'HEAD' })
+      .then((res) => {
+        // Only trust it if the level tab hasn't changed again while this
+        // request was in flight (fast tab-switching would otherwise let
+        // a stale response show the wrong PDF).
+        if (currentLevel !== level) return;
+        if (res.ok) {
+          frame.src = path;
+          frame.hidden = false;
+          if (placeholder) placeholder.hidden = true;
+          if (downloadLink) downloadLink.classList.remove('is-hidden');
+        }
+      })
+      .catch(() => {
+        // Treat a network error the same as "not found yet" — the
+        // placeholder is already showing, nothing more to do.
+      });
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => loadLevel(tab.dataset.level));
+  });
+
+  document.addEventListener('scb:langchange', renderTitle);
+
+  const initialLevel = new URLSearchParams(window.location.search).get('level');
+  loadLevel(initialLevel === 'al' ? 'al' : 'ol', { pushState: false });
+})();
