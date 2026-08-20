@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=17">
   <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
@@ -108,6 +108,15 @@
             <span class="results-placeholder-icon" aria-hidden="true">📄</span>
             <p data-fr="Ces résultats n'ont pas encore été publiés. Revenez consulter cette page bientôt.">These results haven't been published yet. Check back here soon.</p>
           </div>
+          <!-- Shown instead of the iframe on mobile when the document is too
+               large for phones to render inline (e.g. a full regional GCE
+               bulletin) — search above is the fast path; this is the
+               fallback for browsing the whole thing. -->
+          <div class="results-mobile-prompt" id="results-mobile-prompt" hidden>
+            <span class="results-mobile-prompt-icon" aria-hidden="true">📱</span>
+            <p id="results-mobile-prompt-text"></p>
+            <a href="#" id="results-open-tab-link" class="btn btn-primary" target="_blank" rel="noopener" data-fr="Ouvrir les Résultats Complets">Open Full Results</a>
+          </div>
         </div>
       </div>
     </div>
@@ -157,6 +166,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=11"></script>
+  <script src="js/main.js?v=12"></script>
 </body>
 </html>
