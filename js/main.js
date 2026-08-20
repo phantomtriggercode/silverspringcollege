@@ -410,23 +410,50 @@
   const placeholder = document.getElementById('results-placeholder');
   const downloadLink = document.getElementById('results-download-link');
   const titleEl = document.getElementById('results-viewer-title');
+  const searchInput = document.getElementById('results-search-input');
+  const searchStatus = document.getElementById('results-search-status');
+  const searchResults = document.getElementById('results-search-results');
   if (!tabs.length || !frame) return;
+
+  // Fits the page to the width of the viewer and hides the page-thumbnail
+  // side panel Chrome's built-in PDF viewer otherwise opens by default —
+  // these are the same URL fragment params Adobe Reader popularized, which
+  // Chromium's viewer still honors.
+  const PDF_VIEW_PARAMS = 'toolbar=1&navpanes=0&view=FitH';
 
   const COPY = {
     en: {
       ol: '2026 O Level Results',
       al: '2026 A Level Results',
+      indexing: 'Preparing search…',
+      noResults: 'No matches found.',
+      searchUnavailable: 'Search isn’t available for this document.',
+      resultCount: (n) => `${n} match${n === 1 ? '' : 'es'} found`,
+      pageLabel: (n) => `Page ${n}`,
     },
     fr: {
       ol: 'Résultats du Niveau O 2026',
       al: 'Résultats du Niveau A 2026',
+      indexing: 'Préparation de la recherche…',
+      noResults: 'Aucun résultat trouvé.',
+      searchUnavailable: 'La recherche n’est pas disponible pour ce document.',
+      resultCount: (n) => `${n} résultat${n === 1 ? '' : 's'} trouvé${n === 1 ? '' : 's'}`,
+      pageLabel: (n) => `Page ${n}`,
     },
   };
 
   let currentLevel = 'ol';
+  // Per-level cache of extracted page text, so switching tabs back and
+  // forth (or repeated searches) doesn't re-parse the PDF every time.
+  const textCache = { ol: null, al: null };
+  let pdfJsLoadPromise = null;
 
   function currentLang() {
     return document.documentElement.lang === 'fr' ? 'fr' : 'en';
+  }
+
+  function copy() {
+    return COPY[currentLang()] || COPY.en;
   }
 
   function pdfPathFor(level) {
@@ -434,8 +461,19 @@
   }
 
   function renderTitle() {
-    const copy = COPY[currentLang()] || COPY.en;
-    if (titleEl) titleEl.textContent = copy[currentLevel];
+    if (titleEl) titleEl.textContent = copy()[currentLevel];
+  }
+
+  function resetSearchUI() {
+    if (searchInput) {
+      searchInput.value = '';
+      searchInput.disabled = true;
+    }
+    if (searchStatus) searchStatus.hidden = true;
+    if (searchResults) {
+      searchResults.hidden = true;
+      searchResults.innerHTML = '';
+    }
   }
 
   function loadLevel(level, { pushState = true } = {}) {
@@ -446,6 +484,7 @@
     });
 
     renderTitle();
+    resetSearchUI();
 
     const path = pdfPathFor(currentLevel);
 
@@ -471,10 +510,11 @@
         // a stale response show the wrong PDF).
         if (currentLevel !== level) return;
         if (res.ok) {
-          frame.src = path;
+          frame.src = `${path}#${PDF_VIEW_PARAMS}`;
           frame.hidden = false;
           if (placeholder) placeholder.hidden = true;
           if (downloadLink) downloadLink.classList.remove('is-hidden');
+          if (searchInput) searchInput.disabled = false;
         }
       })
       .catch(() => {
@@ -483,11 +523,170 @@
       });
   }
 
+  function jumpToPage(pageNum) {
+    const path = pdfPathFor(currentLevel);
+    frame.src = `${path}#${PDF_VIEW_PARAMS}&page=${pageNum}`;
+  }
+
+  // pdf.js is only needed for the search box's text extraction — the PDF
+  // itself is always shown via the browser's native viewer above. Loaded
+  // on first use (not on every page load) so visitors who never search
+  // never pay for the ~1.5MB library.
+  function ensurePdfJsLoaded() {
+    if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+    if (pdfJsLoadPromise) return pdfJsLoadPromise;
+
+    pdfJsLoadPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'js/vendor/pdfjs/pdf.min.js';
+      script.onload = () => {
+        if (!window.pdfjsLib) {
+          reject(new Error('pdf.js failed to initialize'));
+          return;
+        }
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/vendor/pdfjs/pdf.worker.min.js';
+        resolve(window.pdfjsLib);
+      };
+      script.onerror = () => reject(new Error('pdf.js failed to load'));
+      document.head.appendChild(script);
+    });
+
+    return pdfJsLoadPromise;
+  }
+
+  function extractText(level) {
+    if (textCache[level]) return Promise.resolve(textCache[level]);
+
+    const path = pdfPathFor(level);
+    return ensurePdfJsLoaded().then((pdfjsLib) => (
+      pdfjsLib.getDocument(path).promise.then((pdf) => {
+        const pageNumbers = Array.from({ length: pdf.numPages }, (_, i) => i + 1);
+        return Promise.all(pageNumbers.map((num) => (
+          pdf.getPage(num).then((page) => (
+            page.getTextContent().then((content) => ({
+              pageNum: num,
+              text: content.items.map((item) => item.str).join(' '),
+            }))
+          ))
+        ))).then((pages) => {
+          textCache[level] = pages;
+          return pages;
+        });
+      })
+    ));
+  }
+
+  function buildSnippet(text, query, pageNum) {
+    const lowerText = text.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+    const matchIndex = lowerText.indexOf(lowerQuery);
+    if (matchIndex === -1) return null;
+
+    const contextRadius = 28;
+    const start = Math.max(0, matchIndex - contextRadius);
+    const end = Math.min(text.length, matchIndex + query.length + contextRadius);
+    const prefix = start > 0 ? '…' : '';
+    const suffix = end < text.length ? '…' : '';
+    const before = text.slice(start, matchIndex);
+    const matchedText = text.slice(matchIndex, matchIndex + query.length);
+    const after = text.slice(matchIndex + query.length, end);
+
+    const item = document.createElement('li');
+    const pageTag = document.createElement('span');
+    pageTag.className = 'result-page-tag';
+    pageTag.textContent = copy().pageLabel(pageNum);
+    item.appendChild(pageTag);
+    item.appendChild(document.createTextNode(`${prefix}${before}`));
+    const strong = document.createElement('strong');
+    strong.textContent = matchedText;
+    item.appendChild(strong);
+    item.appendChild(document.createTextNode(`${after}${suffix}`));
+    return item;
+  }
+
+  function renderResults(matches, query) {
+    if (!searchResults || !searchStatus) return;
+    searchResults.innerHTML = '';
+
+    if (!matches.length) {
+      searchStatus.hidden = false;
+      searchStatus.textContent = copy().noResults;
+      searchResults.hidden = true;
+      return;
+    }
+
+    searchStatus.hidden = false;
+    searchStatus.textContent = copy().resultCount(matches.length);
+
+    matches.forEach((match) => {
+      const li = buildSnippet(match.text, query, match.pageNum);
+      if (!li) return;
+      li.classList.add('results-search-result');
+      li.setAttribute('role', 'button');
+      li.setAttribute('tabindex', '0');
+      const go = () => jumpToPage(match.pageNum);
+      li.addEventListener('click', go);
+      li.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          go();
+        }
+      });
+      searchResults.appendChild(li);
+    });
+
+    searchResults.hidden = false;
+  }
+
+  function runSearch(query) {
+    if (!searchStatus || !searchResults) return;
+
+    if (!query) {
+      searchStatus.hidden = true;
+      searchResults.hidden = true;
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    searchStatus.hidden = false;
+    searchStatus.textContent = copy().indexing;
+    searchResults.hidden = true;
+
+    const levelAtRequest = currentLevel;
+
+    extractText(levelAtRequest)
+      .then((pages) => {
+        // The visitor may have switched tabs or cleared the box while the
+        // PDF was being parsed — a stale result set would be confusing.
+        if (currentLevel !== levelAtRequest || !searchInput || searchInput.value.trim() !== query) return;
+        const matches = pages.filter((p) => p.text.toLowerCase().includes(query.toLowerCase()));
+        renderResults(matches, query);
+      })
+      .catch(() => {
+        if (currentLevel !== levelAtRequest) return;
+        searchStatus.textContent = copy().searchUnavailable;
+      });
+  }
+
+  if (searchInput) {
+    let debounceTimer;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      const query = searchInput.value.trim();
+      debounceTimer = setTimeout(() => runSearch(query), 350);
+    });
+  }
+
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => loadLevel(tab.dataset.level));
   });
 
-  document.addEventListener('scb:langchange', renderTitle);
+  document.addEventListener('scb:langchange', () => {
+    renderTitle();
+    // Re-run so status/result text (which is JS-rendered, not data-fr)
+    // updates too, if a search is currently active.
+    if (searchInput && searchInput.value.trim()) runSearch(searchInput.value.trim());
+  });
 
   const initialLevel = new URLSearchParams(window.location.search).get('level');
   loadLevel(initialLevel === 'al' ? 'al' : 'ol', { pushState: false });
