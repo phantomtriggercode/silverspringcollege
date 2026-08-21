@@ -418,12 +418,6 @@
   const openTabLink = document.getElementById('results-open-tab-link');
   if (!tabs.length || !frame) return;
 
-  // Fits the page to the width of the viewer and hides the page-thumbnail
-  // side panel Chrome's built-in PDF viewer otherwise opens by default —
-  // these are the same URL fragment params Adobe Reader popularized, which
-  // Chromium's viewer still honors.
-  const PDF_VIEW_PARAMS = 'toolbar=1&navpanes=0&view=FitH';
-
   // A results PDF can be either a single school's short document or a full
   // regional/national bulletin covering hundreds of schools — we've seen
   // documents past 350 pages. Phones don't have the RAM/CPU to lay out and
@@ -578,10 +572,26 @@
     });
   }
 
+  // Points the iframe (or the mobile fallback's "open in new tab" link) at
+  // our own results-viewer.html instead of the raw PDF. That page renders
+  // the document with pdf.js's own PDFViewer/PDFFindController rather than
+  // the browser's native PDF plugin, which is what lets jumpToPage() below
+  // actually highlight a search match instead of just landing on its page.
+  function viewerUrlFor(path, { page, search } = {}) {
+    const url = new URL('results-viewer.html', window.location.href);
+    url.searchParams.set('file', path);
+    url.searchParams.set('lang', currentLang());
+    const hashParts = [];
+    if (page) hashParts.push(`page=${page}`);
+    if (search) hashParts.push(`search=${encodeURIComponent(search)}`);
+    if (hashParts.length) url.hash = hashParts.join('&');
+    return url.toString();
+  }
+
   function showEmbeddedViewer(path) {
     usingMobilePrompt = false;
     if (mobilePrompt) mobilePrompt.hidden = true;
-    frame.src = `${path}#${PDF_VIEW_PARAMS}`;
+    frame.src = viewerUrlFor(path);
     frame.hidden = false;
     if (placeholder) placeholder.hidden = true;
   }
@@ -593,7 +603,7 @@
     frame.src = 'about:blank';
     if (placeholder) placeholder.hidden = true;
     if (mobilePromptText) mobilePromptText.textContent = copy().mobilePrompt(numPages);
-    if (openTabLink) openTabLink.href = `${path}#${PDF_VIEW_PARAMS}`;
+    if (openTabLink) openTabLink.href = viewerUrlFor(path);
     if (mobilePrompt) mobilePrompt.hidden = false;
   }
 
@@ -660,9 +670,9 @@
       });
   }
 
-  function jumpToPage(pageNum) {
+  function jumpToPage(pageNum, query) {
     const path = bustedPathFor(currentLevel);
-    const url = `${path}#${PDF_VIEW_PARAMS}&page=${pageNum}`;
+    const url = viewerUrlFor(path, { page: pageNum, search: query });
     if (usingMobilePrompt) {
       window.open(url, '_blank', 'noopener');
     } else {
@@ -718,7 +728,7 @@
       li.classList.add('results-search-result');
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', '0');
-      const go = () => jumpToPage(match.pageNum);
+      const go = () => jumpToPage(match.pageNum, query);
       li.addEventListener('click', go);
       li.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
