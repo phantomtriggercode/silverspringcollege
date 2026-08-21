@@ -439,6 +439,8 @@
     en: {
       ol: '2026 O Level Results',
       al: '2026 A Level Results',
+      'tvee-il': '2026 TVEE Intermediate Level Results',
+      'tvee-al': '2026 TVEE Advanced Level Results',
       indexing: 'Preparing search…',
       noResults: 'No matches found.',
       searchUnavailable: 'Search isn’t available for this document.',
@@ -449,6 +451,8 @@
     fr: {
       ol: 'Résultats du Niveau O 2026',
       al: 'Résultats du Niveau A 2026',
+      'tvee-il': 'Résultats TVEE Niveau Intermediate 2026',
+      'tvee-al': 'Résultats TVEE Niveau Advanced 2026',
       indexing: 'Préparation de la recherche…',
       noResults: 'Aucun résultat trouvé.',
       searchUnavailable: 'La recherche n’est pas disponible pour ce document.',
@@ -458,7 +462,16 @@
     },
   };
 
-  let currentLevel = 'ol';
+  // The set of valid results levels — each corresponds to a
+  // results/<level>-2026.pdf file and a .results-tab[data-level] button.
+  const LEVELS = ['ol', 'al', 'tvee-il', 'tvee-al'];
+  const DEFAULT_LEVEL = 'ol';
+
+  function normalizeLevel(level) {
+    return LEVELS.includes(level) ? level : DEFAULT_LEVEL;
+  }
+
+  let currentLevel = DEFAULT_LEVEL;
   let usingMobilePrompt = false;
   let mobilePromptPageCount = 0;
   // Set once per page load and appended as a query string to every
@@ -475,8 +488,8 @@
   // text, so switching tabs back and forth (or repeated searches) doesn't
   // re-parse the PDF every time. Scoped to this page load only (a fresh
   // page load gets a fresh cache-bust anyway).
-  const pdfDocCache = { ol: null, al: null };
-  const textCache = { ol: null, al: null };
+  const pdfDocCache = { ol: null, al: null, 'tvee-il': null, 'tvee-al': null };
+  const textCache = { ol: null, al: null, 'tvee-il': null, 'tvee-al': null };
   let pdfJsLoadPromise = null;
 
   function currentLang() {
@@ -585,7 +598,7 @@
   }
 
   function loadLevel(level, { pushState = true } = {}) {
-    currentLevel = level === 'al' ? 'al' : 'ol';
+    currentLevel = normalizeLevel(level);
 
     tabs.forEach((tab) => {
       tab.classList.toggle('active', tab.dataset.level === currentLevel);
@@ -773,5 +786,5 @@
   });
 
   const initialLevel = new URLSearchParams(window.location.search).get('level');
-  loadLevel(initialLevel === 'al' ? 'al' : 'ol', { pushState: false });
+  loadLevel(normalizeLevel(initialLevel), { pushState: false });
 })();
