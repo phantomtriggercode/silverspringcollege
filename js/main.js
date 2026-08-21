@@ -461,9 +461,20 @@
   let currentLevel = 'ol';
   let usingMobilePrompt = false;
   let mobilePromptPageCount = 0;
+  // Set once per page load and appended as a query string to every
+  // request for the PDF itself. Some hosts (Hostinger's LiteSpeed cache
+  // among them) cache static files like PDFs at the server/edge level —
+  // a visitor clearing their own browser cache never reaches that. A
+  // fresh query string on each page load is a different cache key every
+  // time, so a just-replaced file is never served stale to the next
+  // visitor. (Kept constant for the lifetime of this page view, rather
+  // than regenerated per tab switch, so the pdf.js document cache below
+  // and the embedded viewer always agree on the same URL.)
+  const currentCacheBust = Date.now();
   // Per-level cache of the pdf.js document handle and its extracted page
   // text, so switching tabs back and forth (or repeated searches) doesn't
-  // re-parse the PDF every time.
+  // re-parse the PDF every time. Scoped to this page load only (a fresh
+  // page load gets a fresh cache-bust anyway).
   const pdfDocCache = { ol: null, al: null };
   const textCache = { ol: null, al: null };
   let pdfJsLoadPromise = null;
@@ -478,6 +489,10 @@
 
   function pdfPathFor(level) {
     return `results/${level}-2026.pdf`;
+  }
+
+  function bustedPathFor(level) {
+    return `${pdfPathFor(level)}?t=${currentCacheBust}`;
   }
 
   function isMobileViewport() {
@@ -525,9 +540,8 @@
     return pdfJsLoadPromise;
   }
 
-  function loadPdfDocument(level) {
+  function loadPdfDocument(level, path) {
     if (pdfDocCache[level]) return pdfDocCache[level];
-    const path = pdfPathFor(level);
     pdfDocCache[level] = ensurePdfJsLoaded().then((pdfjsLib) => pdfjsLib.getDocument(path).promise);
     return pdfDocCache[level];
   }
@@ -535,7 +549,7 @@
   function extractText(level) {
     if (textCache[level]) return Promise.resolve(textCache[level]);
 
-    return loadPdfDocument(level).then((pdf) => {
+    return loadPdfDocument(level, bustedPathFor(level)).then((pdf) => {
       const pageNumbers = Array.from({ length: pdf.numPages }, (_, i) => i + 1);
       return Promise.all(pageNumbers.map((num) => (
         pdf.getPage(num).then((page) => (
@@ -580,7 +594,7 @@
     renderTitle();
     resetSearchUI();
 
-    const path = pdfPathFor(currentLevel);
+    const path = bustedPathFor(currentLevel);
 
     if (downloadLink) {
       downloadLink.href = path;
@@ -599,7 +613,7 @@
     if (placeholder) placeholder.hidden = false;
     if (downloadLink) downloadLink.classList.add('is-hidden');
 
-    fetch(path, { method: 'HEAD' })
+    fetch(path, { method: 'HEAD', cache: 'no-store' })
       .then((res) => {
         // Only trust it if the level tab hasn't changed again while this
         // request was in flight (fast tab-switching would otherwise let
@@ -609,7 +623,7 @@
         if (downloadLink) downloadLink.classList.remove('is-hidden');
         if (searchInput) searchInput.disabled = false;
 
-        loadPdfDocument(level)
+        loadPdfDocument(level, path)
           .then((pdf) => {
             if (currentLevel !== level) return;
             if (pdf.numPages > LARGE_DOC_PAGE_THRESHOLD && isMobileViewport()) {
@@ -634,7 +648,7 @@
   }
 
   function jumpToPage(pageNum) {
-    const path = pdfPathFor(currentLevel);
+    const path = bustedPathFor(currentLevel);
     const url = `${path}#${PDF_VIEW_PARAMS}&page=${pageNum}`;
     if (usingMobilePrompt) {
       window.open(url, '_blank', 'noopener');
