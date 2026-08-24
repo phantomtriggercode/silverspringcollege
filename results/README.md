@@ -12,6 +12,15 @@ automatically — no code changes needed:
 Until a file is uploaded here, that level's tab on the Results page
 shows a "not published yet" placeholder instead of a broken viewer.
 
+## "I uploaded it but the site still says not published"
+
+This is almost always the filename. It must match **exactly**, including
+lowercase — `OL-2026.pdf` or `Ol-2026.PDF` will NOT be picked up, only
+`ol-2026.pdf` will. Double-check the filename in Hostinger's File Manager
+(or `git log --stat` for the upload commit) character-for-character
+against the list above. There's no error message for a mismatched name —
+the page just can't find it, so it keeps showing the placeholder.
+
 ## Workflow
 
 1. Push the PDF into this folder via git (same as the `images/uploads/`

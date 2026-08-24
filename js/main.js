@@ -307,6 +307,7 @@
       daysLeft: (n) => `${n} day${n === 1 ? '' : 's'} left to apply`,
       opensIn: (n) => (n <= 0 ? 'Opens today' : `Opens in ${n} day${n === 1 ? '' : 's'}`),
       closedNote: 'This admissions cycle has ended',
+      unknown: 'Contact us for admission dates',
     },
     fr: {
       ongoing: 'Admissions en Cours',
@@ -315,6 +316,7 @@
       daysLeft: (n) => `${n} jour${n === 1 ? '' : 's'} restant${n === 1 ? '' : 's'} pour postuler`,
       opensIn: (n) => (n <= 0 ? "Ouvre aujourd'hui" : `Ouvre dans ${n} jour${n === 1 ? '' : 's'}`),
       closedNote: "Cette période d'admission est terminée",
+      unknown: "Contactez-nous pour les dates d'admission",
     },
   };
 
@@ -329,9 +331,24 @@
     const copy = COPY[lang] || COPY.en;
 
     const statusEl = card.querySelector('[data-admissions-status]');
-    const labelEl = statusEl.querySelector('.status-label');
+    const labelEl = statusEl && statusEl.querySelector('.status-label');
     const daysEl = card.querySelector('[data-admissions-days]');
     const fillEl = card.querySelector('[data-admissions-fill]');
+    if (!statusEl || !labelEl || !daysEl || !fillEl) return;
+
+    // data-admissions-start/end are the one piece of raw HTML someone
+    // without coding experience is likely to hand-edit each year. A typo'd
+    // date format (e.g. "07/01/2026" instead of "2026-07-01") would
+    // otherwise silently produce "NaN% "/ "NaN days left" — show a plain,
+    // date-math-free fallback instead.
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+      statusEl.classList.remove('is-ongoing', 'is-upcoming', 'is-closed');
+      statusEl.classList.add('is-unknown');
+      labelEl.textContent = copy.unknown;
+      daysEl.textContent = '';
+      fillEl.style.width = '0%';
+      return;
+    }
 
     let percent;
     let state;
@@ -577,8 +594,14 @@
   // the document with pdf.js's own PDFViewer/PDFFindController rather than
   // the browser's native PDF plugin, which is what lets jumpToPage() below
   // actually highlight a search match instead of just landing on its page.
+  //
+  // Requested extensionless ("results-viewer", not "results-viewer.html")
+  // to match every other page on the site — Hostinger's .htaccess 301s any
+  // *.html request to its extensionless form, so requesting the .html path
+  // directly would cost every single PDF load an extra redirect round trip
+  // for no reason.
   function viewerUrlFor(path, { page, search } = {}) {
-    const url = new URL('results-viewer.html', window.location.href);
+    const url = new URL('results-viewer', window.location.href);
     url.searchParams.set('file', path);
     url.searchParams.set('lang', currentLang());
     const hashParts = [];
