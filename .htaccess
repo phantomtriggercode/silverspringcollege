@@ -1,5 +1,7 @@
 RewriteEngine On
 
+ErrorDocument 404 /404
+
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html[\ ?]
 RewriteRule ^index\.html$ / [R=301,L]
 

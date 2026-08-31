@@ -56,6 +56,29 @@ ul {
   list-style: none;
 }
 
+/* Invisible until a keyboard user tabs to it — lets them jump straight to
+   <main> instead of tabbing through the entire header/nav on every page. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 12px;
+  /* .site-header is a sticky element at z-index: 1000 — this needs to sit
+     above it, not tie with it, or the header paints over the link when
+     it's focused right at the top of the page. */
+  z-index: 1001;
+  background-color: var(--maroon);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: 0 0 6px 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   line-height: 1.2;
@@ -2494,4 +2517,44 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   letter-spacing: 0.4px;
   margin-bottom: 3px;
+}
+
+/* ============================================
+   404 PAGE
+   ============================================ */
+.not-found-section {
+  padding: 70px 0 90px;
+}
+
+.not-found-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.not-found-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 8px 0 44px;
+}
+
+.not-found-quicklinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 26px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.not-found-quicklinks a {
+  color: var(--maroon);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.not-found-quicklinks a:hover {
+  color: var(--gold);
 }
