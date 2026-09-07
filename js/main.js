@@ -221,6 +221,13 @@
       el.placeholder = lang === 'fr' ? el.dataset.frPlaceholder : el.dataset.enPlaceholder;
     });
 
+    document.querySelectorAll('[data-fr-aria-label]').forEach((el) => {
+      if (el.dataset.enAriaLabel === undefined) {
+        el.dataset.enAriaLabel = el.getAttribute('aria-label') || '';
+      }
+      el.setAttribute('aria-label', lang === 'fr' ? el.dataset.frAriaLabel : el.dataset.enAriaLabel);
+    });
+
     document.querySelectorAll('.lang-select').forEach((select) => {
       select.value = lang;
     });
@@ -411,6 +418,64 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+})();
+
+// ============================================
+// SOCIAL SHARE BUTTONS (site footer)
+// ============================================
+// WhatsApp, Facebook, and email all have a real "share this link" URL
+// scheme, built fresh per click from whatever page the visitor is
+// actually on — there's no per-page markup to maintain. TikTok and
+// Instagram have no equivalent web share link, so instead of a button
+// that goes nowhere useful, "Copy link" covers those (and anything
+// else) by putting the URL on the clipboard to paste in wherever.
+(function initSocialShare() {
+  const buttons = document.querySelectorAll('[data-share]');
+  if (!buttons.length) return;
+
+  function shareTargetFor(type) {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    if (type === 'whatsapp') return `https://wa.me/?text=${title}%20${url}`;
+    if (type === 'facebook') return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    if (type === 'email') return `mailto:?subject=${title}&body=${url}`;
+    return null;
+  }
+
+  buttons.forEach((btn) => {
+    const type = btn.dataset.share;
+
+    if (type === 'copy') {
+      const defaultLabel = btn.textContent;
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          btn.textContent = '✅';
+          btn.classList.add('is-copied');
+          setTimeout(() => {
+            btn.textContent = defaultLabel;
+            btn.classList.remove('is-copied');
+          }, 1800);
+        }).catch(() => {
+          // Clipboard API blocked (older browser, insecure context) —
+          // nothing to fall back to that isn't worse than doing nothing.
+        });
+      });
+      return;
+    }
+
+    // Built at click time, not on page load, so it always reflects
+    // whichever page the visitor is currently on.
+    btn.addEventListener('click', (e) => {
+      const target = shareTargetFor(type);
+      if (!target) return;
+      if (type === 'email') {
+        window.location.href = target;
+      } else {
+        window.open(target, '_blank', 'noopener');
+      }
+      e.preventDefault();
+    });
   });
 })();
 
