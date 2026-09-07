@@ -20,3 +20,8 @@ header comment in each file). To update: download a newer `pdfjs-dist`
 release and replace all three files with its `legacy/build/pdf.min.js`,
 `legacy/build/pdf.worker.min.js`, and `legacy/web/pdf_viewer.js` (plus
 `legacy/web/pdf_viewer.css` into `../../css/`).
+
+`pdf_viewer.css` also references `../../css/images/loading-icon.gif` (the
+small spinner shown while a page is still rendering) — when updating,
+also copy `legacy/web/images/loading-icon.gif` into `../../css/images/`,
+or that spinner silently 404s.

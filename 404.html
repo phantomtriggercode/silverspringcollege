@@ -3,19 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026 GCE Results | Silverspring College Beka</title>
-  <meta name="description" content="View Silverspring College Beka's 2026 GCE Ordinary Level, Advanced Level, and TVEE technical results online.">
-
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Silverspring College Beka">
-  <meta property="og:title" content="2026 GCE Results | Silverspring College Beka">
-  <meta property="og:description" content="View Silverspring College Beka's 2026 GCE Ordinary Level, Advanced Level, and TVEE technical results online.">
-  <meta property="og:url" content="https://silverspringcollege.com/results">
-  <meta property="og:image" content="https://silverspringcollege.com/images/hero-bg.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="2026 GCE Results | Silverspring College Beka">
-  <meta name="twitter:description" content="View Silverspring College Beka's 2026 GCE Ordinary Level, Advanced Level, and TVEE technical results online.">
-  <meta name="twitter:image" content="https://silverspringcollege.com/images/hero-bg.jpg">
+  <title>Page Not Found | Silverspring College Beka</title>
+  <meta name="description" content="The page you're looking for doesn't exist on Silverspring College Beka's website.">
+  <meta name="robots" content="noindex">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -82,63 +72,33 @@
   <div class="nav-backdrop" id="nav-backdrop"></div>
 
   <main id="main-content">
-
-  <!-- ============ PAGE BANNER ============ -->
-  <section class="page-banner">
-    <div class="container">
-      <p class="hero-eyebrow" data-fr="Résultats d'Examen">Exam Results</p>
-      <h1 data-fr="Résultats du GCE 2026">2026 GCE Results</h1>
-      <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Résultats">Results</span></p>
-    </div>
-  </section>
-
-  <!-- ============ RESULTS VIEWER ============ -->
-  <section class="results-section">
-    <div class="container">
-      <p class="section-eyebrow center" data-fr="Consulter les Résultats">View Results</p>
-      <h2 class="section-title center" data-fr="Résultats GCE et TVEE">GCE &amp; TVEE Results</h2>
-      <p class="section-body center" data-fr="Choisissez un niveau ci-dessous pour consulter le document officiel des résultats directement sur cette page. Aucun téléchargement n'est nécessaire.">Choose a level below to view the official results document right on this page. No download required.</p>
-
-      <div class="results-picker" role="tablist" aria-label="Choose a results level">
-        <button type="button" class="results-tab" data-level="ol" role="tab" data-fr="Résultats du Niveau O">O Level Results</button>
-        <button type="button" class="results-tab" data-level="al" role="tab" data-fr="Résultats du Niveau A">A Level Results</button>
-        <button type="button" class="results-tab" data-level="tvee-il" role="tab" data-fr="Résultats TVEE Niveau I">TVEE Intermediate Level Results</button>
-        <button type="button" class="results-tab" data-level="tvee-al" role="tab" data-fr="Résultats TVEE Niveau A">TVEE Advanced Level Results</button>
+    <!-- ============ PAGE BANNER ============ -->
+    <section class="page-banner">
+      <div class="container">
+        <p class="hero-eyebrow" data-fr="Erreur 404">404 Error</p>
+        <h1 data-fr="Page Introuvable">Page Not Found</h1>
+        <p class="breadcrumb"><a href="/" data-fr="Accueil">Home</a> / <span data-fr="Page Introuvable">Page Not Found</span></p>
       </div>
+    </section>
 
-      <div class="results-viewer-card reveal">
-        <div class="results-viewer-toolbar">
-          <h3 id="results-viewer-title" data-fr="Résultats du Niveau O 2026">2026 O Level Results</h3>
-          <a href="results/ol-2026.pdf" id="results-download-link" class="btn btn-outline-maroon" download data-fr="Télécharger le PDF">Download PDF</a>
+    <!-- ============ 404 ============ -->
+    <section class="not-found-section">
+      <div class="container not-found-inner">
+        <p class="section-body center" data-fr="La page que vous recherchez a peut-être été déplacée, renommée, ou n'existe plus. Vérifiez l'adresse, ou repartez de l'une des pages ci-dessous.">The page you're looking for may have been moved, renamed, or no longer exists. Double-check the address, or head back in from one of the pages below.</p>
+        <div class="not-found-links">
+          <a href="/" class="btn btn-primary" data-fr="Retour à l'Accueil">Back to Home</a>
+          <a href="/contact" class="btn btn-outline-maroon" data-fr="Nous Contacter">Contact Us</a>
         </div>
-
-        <div class="results-search" id="results-search">
-          <span class="results-search-icon" aria-hidden="true">🔍</span>
-          <input type="search" id="results-search-input" class="results-search-input" placeholder="Search by name or center number" data-fr-placeholder="Rechercher par nom ou numéro de centre" autocomplete="off" disabled>
-        </div>
-        <p class="results-search-status" id="results-search-status" hidden></p>
-        <ul class="results-search-results" id="results-search-results" hidden></ul>
-
-        <div class="results-iframe-wrap" id="results-iframe-wrap">
-          <iframe id="results-frame" title="GCE results document" hidden></iframe>
-          <div class="results-placeholder" id="results-placeholder">
-            <span class="results-placeholder-icon" aria-hidden="true">📄</span>
-            <p data-fr="Ces résultats n'ont pas encore été publiés. Revenez consulter cette page bientôt.">These results haven't been published yet. Check back here soon.</p>
-          </div>
-          <!-- Shown instead of the iframe on mobile when the document is too
-               large for phones to render inline (e.g. a full regional GCE
-               bulletin) — search above is the fast path; this is the
-               fallback for browsing the whole thing. -->
-          <div class="results-mobile-prompt" id="results-mobile-prompt" hidden>
-            <span class="results-mobile-prompt-icon" aria-hidden="true">📱</span>
-            <p id="results-mobile-prompt-text"></p>
-            <a href="#" id="results-open-tab-link" class="btn btn-primary" target="_blank" rel="noopener" data-fr="Ouvrir les Résultats Complets">Open Full Results</a>
-          </div>
-        </div>
+        <ul class="not-found-quicklinks">
+          <li><a href="/about" data-fr="À Propos de Nous">About Us</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
+          <li><a href="/results" data-fr="Résultats du GCE 2026">2026 GCE Results</a></li>
+        </ul>
       </div>
-    </div>
-  </section>
-
+    </section>
   </main>
 
   <!-- ============ FOOTER ============ -->
