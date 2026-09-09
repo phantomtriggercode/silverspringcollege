@@ -192,10 +192,6 @@ h1, h2, h3, h4 {
 }
 
 /* --- Nav links --- */
-/* The direct-child combinator matters here: .dropdown-menu is also a
-   <ul> nested inside .main-nav, and it needs its own display rules
-   (including display:none while collapsed on mobile, below) — a plain
-   descendant selector would out-specificity that. */
 .main-nav > ul {
   display: flex;
   align-items: center;
@@ -212,56 +208,6 @@ h1, h2, h3, h4 {
 
 .main-nav > ul > li > a:hover {
   color: var(--maroon);
-}
-
-/* --- Portal dropdown --- */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-toggle {
-  background-color: var(--maroon);
-  color: var(--white) !important;
-  padding: 10px 18px;
-  border-radius: 4px;
-}
-
-.dropdown-toggle:hover {
-  background-color: var(--maroon-dark);
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: var(--white);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  border-radius: 6px;
-  min-width: 210px;
-  padding: 8px 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(8px);
-  transition: all 0.2s ease;
-}
-
-.dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.dropdown-menu li a {
-  display: block;
-  padding: 10px 20px;
-  color: var(--charcoal) !important;
-  font-size: 0.88rem;
-  font-weight: 500;
-}
-
-.dropdown-menu li a:hover {
-  background-color: var(--cream);
-  color: var(--maroon) !important;
 }
 
 /* --- Language switcher (EN / Français, swapped instantly client-side) --- */
@@ -470,41 +416,6 @@ h1, h2, h3, h4 {
   .main-nav a.active {
     color: var(--gold-light);
     border-bottom-color: var(--gold-light);
-  }
-
-  /* The Portal button loses its usual maroon-on-white contrast against
-     this dark panel, so it flips to gold here instead. */
-  .main-nav .dropdown-toggle {
-    background-color: var(--gold);
-    color: var(--maroon-dark) !important;
-    text-align: center;
-  }
-
-  .main-nav .dropdown-toggle:hover {
-    background-color: var(--gold-light);
-  }
-
-  /* The Portal submenu becomes a light card floating on the dark panel,
-     rather than inheriting the (now unreadable) dark-on-dark styling. */
-  .dropdown-menu {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    box-shadow: none;
-    display: none;
-    background-color: rgba(255,255,255,0.96);
-    border-radius: 8px;
-    margin-top: 8px;
-    padding: 6px 0;
-  }
-
-  .dropdown-menu li a {
-    padding: 10px 16px;
-  }
-
-  .dropdown.mobile-open .dropdown-menu {
-    display: block;
   }
 
   /* Replaced by .header-lang-mobile next to the hamburger — kept out of
