@@ -11,8 +11,6 @@
   const menuToggle = document.getElementById('menu-toggle');
   const mainNav = document.getElementById('main-nav');
   const navBackdrop = document.getElementById('nav-backdrop');
-  const dropdownToggle = document.querySelector('.dropdown-toggle');
-  const dropdown = document.querySelector('.dropdown');
 
   if (!menuToggle || !mainNav) return;
 
@@ -52,35 +50,13 @@
     }
   });
 
-  mainNav.querySelectorAll('a:not(.dropdown-toggle)').forEach((link) => {
+  mainNav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
         closeMobileNav();
       }
     });
   });
-
-  // On mobile, the Portal dropdown needs to open on TAP instead of HOVER
-  // (phones don't have a mouse to "hover" with). This link is href="#"
-  // purely as a hover trigger on desktop — it should never actually
-  // navigate and leave "#" in the address bar, on any screen size.
-  if (dropdownToggle && dropdown) {
-    dropdownToggle.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (window.innerWidth <= MOBILE_NAV_BREAKPOINT) {
-        dropdown.classList.toggle('mobile-open');
-        if (dropdown.classList.contains('mobile-open')) {
-          // Scrolling to reveal the newly-expanded submenu shouldn't be
-          // left to chance (browser auto-scroll behavior here is
-          // inconsistent) — do it explicitly so the submenu is always
-          // reachable inside the scrollable nav panel.
-          requestAnimationFrame(() => {
-            dropdown.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-          });
-        }
-      }
-    });
-  }
 })();
 
 // ============================================
