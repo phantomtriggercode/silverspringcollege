@@ -398,7 +398,7 @@
 })();
 
 // ============================================
-// SOCIAL SHARE BUTTONS (site footer)
+// SOCIAL SHARE BUTTONS (floating bar, every page)
 // ============================================
 // WhatsApp, Facebook, and email all have a real "share this link" URL
 // scheme, built fresh per click from whatever page the visitor is
@@ -414,7 +414,6 @@
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
     if (type === 'whatsapp') return `https://wa.me/?text=${title}%20${url}`;
-    if (type === 'facebook') return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
     if (type === 'email') return `mailto:?subject=${title}&body=${url}`;
     return null;
   }
@@ -423,13 +422,13 @@
     const type = btn.dataset.share;
 
     if (type === 'copy') {
-      const defaultLabel = btn.textContent;
       btn.addEventListener('click', () => {
         navigator.clipboard.writeText(window.location.href).then(() => {
-          btn.textContent = '✅';
+          // The icon itself (an inline <svg>) stays put — only the
+          // background flashes green — so there's nothing here to swap
+          // back afterwards.
           btn.classList.add('is-copied');
           setTimeout(() => {
-            btn.textContent = defaultLabel;
             btn.classList.remove('is-copied');
           }, 1800);
         }).catch(() => {
