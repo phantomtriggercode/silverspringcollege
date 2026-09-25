@@ -707,49 +707,86 @@ h1, h2, h3, h4 {
   max-width: 280px;
 }
 
-.footer-social-label {
-  color: var(--gold-light);
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin: 22px 0 12px;
-}
-
-.footer-social,
-.share-buttons {
+/* ============================================
+   FLOATING SOCIAL BAR
+   ============================================ */
+.social-float {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  z-index: 500;
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.footer-social a,
-.share-btn {
+.social-float-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background-color: rgba(255,255,255,0.1);
-  font-size: 1.05rem;
   border: none;
   cursor: pointer;
-  color: inherit;
-  font-family: inherit;
-  line-height: 1;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.footer-social a:hover,
-.footer-social a:focus-visible,
-.share-btn:hover,
-.share-btn:focus-visible {
-  background-color: var(--gold);
-  transform: translateY(-2px);
+.social-float-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
-.share-btn.is-copied {
-  background-color: #2f9e44;
+.social-float-btn:hover,
+.social-float-btn:focus-visible {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* Real brand colors for the two actual platforms, so each icon reads at
+   a glance the way visitors already expect from every other site — a
+   plain currentColor/maroon treatment for these two specifically would
+   undercut the point of using their real logos. Email/copy-link aren't
+   platforms, so they stay on the site's own maroon instead. */
+.social-float-btn.brand-facebook {
+  background-color: #1877f2;
+}
+
+.social-float-btn.brand-whatsapp {
+  background-color: #25d366;
+}
+
+.social-float-btn.is-utility {
+  background-color: var(--maroon);
+}
+
+.social-float-btn.is-utility:hover,
+.social-float-btn.is-utility:focus-visible {
+  background-color: var(--maroon-dark);
+}
+
+.social-float-btn.is-copied {
+  background-color: #2f9e44 !important;
+}
+
+@media (max-width: 700px) {
+  .social-float {
+    right: 10px;
+    gap: 8px;
+  }
+
+  .social-float-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .social-float-btn svg {
+    width: 17px;
+    height: 17px;
+  }
 }
 
 .footer-col h4 {
