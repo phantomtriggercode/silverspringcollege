@@ -270,100 +270,37 @@
 })();
 
 // ============================================
-// ADMISSIONS TIMELINE (progress bar)
+// ADMISSIONS FORM LOCK (admissions closed until Aug 2027)
 // ============================================
-// Renders its own bilingual text (rather than static data-fr markup)
-// because the status and days-remaining depend on today's date, not
-// just the selected language — it recomputes on load and again
-// whenever the language switch fires.
-(function initAdmissionsTimeline() {
-  const cards = document.querySelectorAll('[data-admissions-start]');
-  if (!cards.length) return;
+(function initAdmissionsFormLock() {
+  const lock = document.querySelector('[data-admissions-lock]');
+  const notice = document.getElementById('admissions-closed-notice');
+  if (!lock) return;
 
-  const DAY_MS = 24 * 60 * 60 * 1000;
-
-  const COPY = {
-    en: {
-      ongoing: 'Admissions Ongoing',
-      upcoming: 'Admissions Opening Soon',
-      closed: 'Admissions Closed',
-      daysLeft: (n) => `${n} day${n === 1 ? '' : 's'} left to apply`,
-      opensIn: (n) => (n <= 0 ? 'Opens today' : `Opens in ${n} day${n === 1 ? '' : 's'}`),
-      closedNote: 'This admissions cycle has ended',
-      unknown: 'Contact us for admission dates',
-    },
-    fr: {
-      ongoing: 'Admissions en Cours',
-      upcoming: 'Ouverture Prochaine',
-      closed: 'Admissions Closes',
-      daysLeft: (n) => `${n} jour${n === 1 ? '' : 's'} restant${n === 1 ? '' : 's'} pour postuler`,
-      opensIn: (n) => (n <= 0 ? "Ouvre aujourd'hui" : `Ouvre dans ${n} jour${n === 1 ? '' : 's'}`),
-      closedNote: "Cette période d'admission est terminée",
-      unknown: "Contactez-nous pour les dates d'admission",
-    },
-  };
-
-  function currentLang() {
-    return document.documentElement.lang === 'fr' ? 'fr' : 'en';
+  let flashTimer = null;
+  function flashNotice() {
+    if (!notice) return;
+    notice.classList.add('is-flash');
+    window.clearTimeout(flashTimer);
+    flashTimer = window.setTimeout(() => notice.classList.remove('is-flash'), 1600);
+    notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  function render(card, lang) {
-    const start = new Date(`${card.dataset.admissionsStart}T00:00:00`);
-    const end = new Date(`${card.dataset.admissionsEnd}T23:59:59`);
-    const now = new Date();
-    const copy = COPY[lang] || COPY.en;
-
-    const statusEl = card.querySelector('[data-admissions-status]');
-    const labelEl = statusEl && statusEl.querySelector('.status-label');
-    const daysEl = card.querySelector('[data-admissions-days]');
-    const fillEl = card.querySelector('[data-admissions-fill]');
-    if (!statusEl || !labelEl || !daysEl || !fillEl) return;
-
-    // data-admissions-start/end are the one piece of raw HTML someone
-    // without coding experience is likely to hand-edit each year. A typo'd
-    // date format (e.g. "07/01/2026" instead of "2026-07-01") would
-    // otherwise silently produce "NaN% "/ "NaN days left" — show a plain,
-    // date-math-free fallback instead.
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-      statusEl.classList.remove('is-ongoing', 'is-upcoming', 'is-closed');
-      statusEl.classList.add('is-unknown');
-      labelEl.textContent = copy.unknown;
-      daysEl.textContent = '';
-      fillEl.style.width = '0%';
-      return;
+  lock.addEventListener('click', flashNotice);
+  lock.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      flashNotice();
     }
+  });
 
-    let percent;
-    let state;
-    let daysText;
-
-    if (now < start) {
-      percent = 0;
-      state = 'upcoming';
-      daysText = copy.opensIn(Math.ceil((start - now) / DAY_MS));
-    } else if (now > end) {
-      percent = 100;
-      state = 'closed';
-      daysText = copy.closedNote;
-    } else {
-      percent = ((now - start) / (end - start)) * 100;
-      state = 'ongoing';
-      daysText = copy.daysLeft(Math.max(0, Math.ceil((end - now) / DAY_MS)));
-    }
-
-    statusEl.classList.remove('is-ongoing', 'is-upcoming', 'is-closed');
-    statusEl.classList.add(`is-${state}`);
-    labelEl.textContent = copy[state];
-    daysEl.textContent = daysText;
-    fillEl.style.width = `${Math.min(100, Math.max(0, Math.round(percent)))}%`;
+  const form = document.querySelector('.inquiry-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      flashNotice();
+    });
   }
-
-  function renderAll(lang) {
-    cards.forEach((card) => render(card, lang));
-  }
-
-  renderAll(currentLang());
-  document.addEventListener('scb:langchange', (e) => renderAll(e.detail.lang));
 })();
 
 // ============================================
