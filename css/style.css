@@ -1560,14 +1560,20 @@ h1, h2, h3, h4 {
   margin-bottom: 20px;
 }
 
+/* Flexbox rather than grid so a section with a number of cards that
+   isn't a clean multiple of the column count (the Teaching Staff
+   section has 5) wraps its last row centered, instead of grid's
+   left-aligned leftover gap. */
 .staff-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 28px;
   margin-top: 50px;
 }
 
 .staff-card {
+  flex: 0 1 calc(25% - 21px);
   text-align: center;
 }
 
@@ -1615,14 +1621,14 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 860px) {
-  .staff-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .staff-card {
+    flex-basis: calc(50% - 14px);
   }
 }
 
 @media (max-width: 480px) {
-  .staff-grid {
-    grid-template-columns: 1fr;
+  .staff-card {
+    flex-basis: 100%;
   }
 }
 
