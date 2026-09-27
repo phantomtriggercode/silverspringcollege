@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silverspring College Beka | Ngaoundéré, Cameroon</title>
+  <meta name="description" content="Silverspring College Beka (SCB), a leading secondary school in Ngaoundéré, Cameroon, founded by the Enow Njock Foundation.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Silverspring College Beka">
+  <meta property="og:title" content="Silverspring College Beka | Ngaoundéré, Cameroon">
+  <meta property="og:description" content="Silverspring College Beka (SCB), a leading secondary school in Ngaoundéré, Cameroon, founded by the Enow Njock Foundation.">
+  <meta property="og:url" content="https://silverspringcollege.com/">
+  <meta property="og:image" content="https://silverspringcollege.com/images/hero-bg.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Silverspring College Beka | Ngaoundéré, Cameroon">
+  <meta name="twitter:description" content="Silverspring College Beka (SCB), a leading secondary school in Ngaoundéré, Cameroon, founded by the Enow Njock Foundation.">
+  <meta name="twitter:image" content="https://silverspringcollege.com/images/hero-bg.jpg">
+
+  <!-- Google Fonts: Playfair Display (headings) + Inter (body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Our stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=23">
+
+  <!-- Browser tab icon -->
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content" data-fr="Aller au contenu principal">Skip to main content</a>
+
+  <!-- ============ HEADER / NAVIGATION ============ -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+
+      <a href="/" class="logo-link">
+        <img src="images/logo.png" alt="Silverspring College Beka logo" class="logo-img">
+        <span class="logo-text">Silverspring<br><small>College Beka</small></span>
+      </a>
+
+      <div class="header-mobile-controls">
+        <!-- Compact language switcher shown next to the hamburger on mobile;
+             the full one further down stays inline in the nav on desktop. -->
+        <div class="header-lang-mobile">
+          <select class="lang-select" aria-label="Choose language / Choisir la langue">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </div>
+
+        <!-- Hamburger button, only visible on mobile -->
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="menu-toggle-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="menu-toggle-text" data-fr="Fermer">Close</span>
+        </button>
+      </div>
+
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À propos">About</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
+          <li><a href="/contact" data-fr="Contact">Contact</a></li>
+
+          <li class="lang-switcher">
+            <select class="lang-select" aria-label="Choose language / Choisir la langue">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+            </select>
+          </li>
+          <li><a href="https://portal.silverspringcollege.com" target="_blank" rel="noopener" data-fr="Portail">Portal</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <!-- Sticks to the header (same sticky container) so it stays visible
+         while scrolling the homepage, without needing its own offset math. -->
+    <div class="gce-announcement-bar">
+      <div class="container">
+        <button type="button" class="gce-announcement-btn" id="gce-announcement-btn">
+          <span aria-hidden="true">🎓</span>
+          <span data-fr="Voir les Résultats du GCE 2026">View 2026 GCE Results</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="nav-backdrop"></div>
+
+  <!-- ============ GCE RESULTS LEVEL PICKER MODAL ============ -->
+  <div class="gce-modal-overlay" id="gce-modal-overlay">
+    <div class="gce-modal" role="dialog" aria-modal="true" aria-labelledby="gce-modal-title">
+      <button type="button" class="gce-modal-close" id="gce-modal-close" aria-label="Close">✕</button>
+      <h3 id="gce-modal-title" data-fr="Quels résultats voulez-vous consulter ?">Which results would you like to view?</h3>
+      <p data-fr="Choisissez un niveau pour ouvrir le document des résultats.">Choose a level to open the results document.</p>
+      <div class="gce-modal-options">
+        <a href="/results?level=ol" class="gce-modal-option">
+          <span class="gce-modal-option-icon" aria-hidden="true">📘</span>
+          <strong data-fr="Niveau O">O Level</strong>
+          <span data-fr="Résultats Ordinary Level">Ordinary Level results</span>
+        </a>
+        <a href="/results?level=al" class="gce-modal-option">
+          <span class="gce-modal-option-icon" aria-hidden="true">🎓</span>
+          <strong data-fr="Niveau A">A Level</strong>
+          <span data-fr="Résultats Advanced Level">Advanced Level results</span>
+        </a>
+        <a href="/results?level=tvee-il" class="gce-modal-option">
+          <span class="gce-modal-option-icon" aria-hidden="true">🔧</span>
+          <strong data-fr="TVEE Niveau I">TVEE Intermediate Level</strong>
+          <span data-fr="Résultats Techniques Intermediate">Technical Intermediate Level results</span>
+        </a>
+        <a href="/results?level=tvee-al" class="gce-modal-option">
+          <span class="gce-modal-option-icon" aria-hidden="true">⚙️</span>
+          <strong data-fr="TVEE Niveau A">TVEE Advanced Level</strong>
+          <span data-fr="Résultats Techniques Advanced">Technical Advanced Level results</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+ <!-- ============ HERO SECTION ============ -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow" data-fr="Fondé par la Fondation Enow Njock">Founded by the Enow Njock Foundation</p>
+      <h1 class="hero-title" data-fr="Façonner la Prochaine<br>Génération de Leaders du Cameroun">Shaping Cameroon's<br>Next Generation of Leaders</h1>
+      <p class="hero-subtitle" data-fr="Silverspring College Beka offre une éducation de premier ordre ancrée dans des principes moraux élevés et la discipline, préparant chaque élève de Ngaoundéré à devenir un acteur de changement dans sa communauté et dans le monde.">
+        Silverspring College Beka offers first-class education rooted in high moral
+        principles and discipline, preparing every learner in Ngaoundéré to become
+        a changemaker in their community and the world.
+      </p>
+      <div class="hero-buttons">
+        <a href="/admissions" class="btn btn-primary" data-fr="Faire une Demande d'Admission">Apply for Admission</a>
+        <a href="/about" class="btn btn-outline" data-fr="Découvrir SCB">Discover SCB</a>
+      </div>
+    </div>
+    <span class="scroll-cue" aria-hidden="true">⌄</span>
+  </section>
+
+  <!-- ============ QUICK STATS STRIP ============ -->
+  <section class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-count="2022">0</span>
+        <span class="stat-label" data-fr="Fondée">Founded</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="150" data-suffix="+">0</span>
+        <span class="stat-label" data-fr="Élèves">Students</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="4">0</span>
+        <span class="stat-label" data-fr="Filières d'Études">Study Tracks</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">GCE</span>
+        <span class="stat-label" data-fr="Certifié Niveaux O et A">O & A Level Certified</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAMPUS GALLERY MOSAIC ============ -->
+  <section class="home-gallery">
+    <div class="container">
+      <div class="home-gallery-header">
+        <div>
+          <p class="section-eyebrow reveal" data-fr="La Vie à SCB">Life at SCB</p>
+          <h2 class="section-title reveal" data-fr="Un Campus Conçu pour Grandir">A Campus Built for Growth</h2>
+          <p class="section-body reveal" data-fr="Des salles de classe aux ateliers techniques, en passant par le terrain de sport : un aperçu d'une journée type à Silverspring College Beka.">From classrooms to technical workshops to the football pitch: a glimpse of a typical day at Silverspring College Beka.</p>
+        </div>
+        <a href="/gallery" class="btn btn-primary reveal" data-fr="Voir la Galerie Complète">View Full Gallery</a>
+      </div>
+
+      <div class="home-gallery-mosaic reveal-group">
+        <div class="mosaic-tile tile-feature reveal-scale">
+          <img loading="lazy" src="images/gallery/campus-life.jpg" alt="Students on campus between classes">
+          <p class="mosaic-tile-caption" data-fr="Vie sur le Campus">Campus Life</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img loading="lazy" src="images/gallery/school-assembly.jpg" alt="Students at morning assembly">
+          <p class="mosaic-tile-caption" data-fr="Rassemblement Scolaire">Morning Assembly</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img loading="lazy" src="images/gallery/sports-activities.jpg" alt="Students football team">
+          <p class="mosaic-tile-caption" data-fr="Sports et Activités">Sports &amp; Activities</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img loading="lazy" src="images/gallery/technical-workshop.jpg" alt="Technical track students at work">
+          <p class="mosaic-tile-caption" data-fr="Atelier Technique">Technical Workshop</p>
+        </div>
+        <div class="mosaic-tile reveal-scale">
+          <img loading="lazy" src="images/gallery/youth-day.jpg" alt="Students celebrating youth day">
+          <p class="mosaic-tile-caption" data-fr="Jour de la Jeunesse">Youth Day</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT PREVIEW ============ -->
+  <section class="about-preview">
+    <div class="container about-grid">
+      <div class="about-text reveal">
+        <p class="section-eyebrow" data-fr="Qui Nous Sommes">Who We Are</p>
+        <h2 class="section-title" data-fr="Une Éducation de Premier Ordre, Fondée sur la Discipline et la Détermination">A First-Class Education, Built on Discipline and Purpose</h2>
+        <p class="section-body" data-fr="Silverspring College Beka a été fondé à Beka Matali, Ngaoundéré, par la Fondation Enow Njock pour donner aux jeunes Camerounais accès à un enseignement secondaire de qualité. Nous combinons une académie rigoureuse à de fortes valeurs morales, préparant chaque élève à passer les examens nationaux avec confiance et à s'orienter vers l'enseignement supérieur ou une carrière qualifiée avec détermination.">
+          Silverspring College Beka was founded in Beka Matali, Ngaoundéré, by the
+          Enow Njock Foundation to give young Cameroonians access to quality secondary
+          education. We combine rigorous academics with strong moral values, preparing
+          every learner to sit national examinations with confidence and step into
+          higher education or skilled careers with purpose.
+        </p>
+        <p class="section-body" data-fr="Chaque enfant qui franchit nos portes est traité comme un battant, pleinement équipé pour devenir un acteur de changement à Ngaoundéré, à travers le Cameroun, et au-delà.">
+          Every child who walks through our doors is treated as an achiever, fully
+          equipped to become a changemaker in Ngaoundéré, across Cameroon, and beyond.
+        </p>
+        <a href="/about" class="btn btn-primary" data-fr="En Savoir Plus sur SCB">More About SCB</a>
+      </div>
+
+      <div class="about-highlights reveal">
+        <div class="highlight-card">
+          <span class="highlight-icon">🎓</span>
+          <h3 data-fr="Notre Vision">Our Vision</h3>
+          <p data-fr="Construire une école hautement compétitive ancrée dans la discipline, offrant à chaque élève les outils pour diriger.">To build a highly competitive school rooted in discipline, offering every learner the tools to lead.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🇨🇲</span>
+          <h3 data-fr="Notre Mission">Our Mission</h3>
+          <p data-fr="Inculquer des valeurs de construction nationale aux jeunes Camerounais pour élever une génération de patriotes et de leaders.">Instilling nation-building values in young Cameroonians to raise a generation of patriots and leaders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY CHOOSE SCB ============ -->
+  <section class="why-section">
+    <div class="container">
+      <p class="section-eyebrow center reveal" data-fr="Pourquoi les Familles Nous Choisissent">Why Families Choose Us</p>
+      <h2 class="section-title center reveal" data-fr="Ce Qui Distingue Silverspring College Beka">What Sets Silverspring College Beka Apart</h2>
+
+      <div class="why-grid reveal-group">
+        <div class="why-card reveal">
+          <div class="why-icon">🎖️</div>
+          <h3 data-fr="Culture de la Discipline">Discipline-First Culture</h3>
+          <p data-fr="Chaque élève est tenu à des normes élevées de conduite et de caractère, en classe comme en dehors.">Every learner is held to high standards of conduct and character, both inside and outside the classroom.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🏗️</div>
+          <h3 data-fr="Formation Technique Pratique">Hands-On Technical Training</h3>
+          <p data-fr="De vrais ateliers, de vrais outils : nos élèves de la filière Technique construisent et réparent, ils n'en lisent pas seulement.">Real workshops and real tools: our Technical track students build, wire, and repair, not just read about it.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">👨‍🏫</div>
+          <h3 data-fr="Petites Classes, Attention Individuelle">Small, Attentive Classrooms</h3>
+          <p data-fr="Un faible ratio élèves-enseignant garantit qu'aucun élève n'est laissé pour compte.">Low student-to-teacher ratios mean no learner gets left behind.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🌍</div>
+          <h3 data-fr="Un Chemin au-delà du Cameroun">A Pathway Beyond Cameroon</h3>
+          <p data-fr="La certification GCE et nos partenariats actifs ouvrent des portes vers des universités à l'étranger.">GCE certification and active partnerships open doors to universities abroad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO BANNER: OUR PEOPLE ============ -->
+  <section class="photo-banner" style="background-image:url('images/staff/team-photo.jpg');">
+    <div class="photo-banner-overlay"></div>
+    <div class="container photo-banner-content reveal">
+      <p class="section-eyebrow" data-fr="Notre Communauté">Our Community</p>
+      <h2 data-fr="Un Personnel Dévoué à Chaque Élève">A Staff Devoted to Every Learner</h2>
+      <p data-fr="Derrière chaque élève de SCB se trouve une équipe d'enseignants et d'administrateurs déterminés à voir chacun d'eux réussir.">Behind every SCB student is a team of teachers and administrators determined to see each one succeed.</p>
+      <a href="/staff" class="btn btn-primary" data-fr="Rencontrer Notre Personnel">Meet Our Staff</a>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAMS PREVIEW ============ -->
+  <section class="programs-preview">
+    <div class="container">
+      <p class="section-eyebrow center reveal" data-fr="Notre Programme">Our Curriculum</p>
+      <h2 class="section-title center reveal" data-fr="Trois Filières d'Études, une Seule Norme d'Excellence">Three Study Tracks, One Standard of Excellence</h2>
+
+      <div class="programs-grid reveal-group">
+        <div class="program-card reveal">
+          <div class="program-icon">📘</div>
+          <h3 data-fr="Arts et Sciences">Arts &amp; Science</h3>
+          <p data-fr="Matières académiques générales menant aux certificats GCE Ordinary Level et Advanced Level.">General academic subjects leading to the GCE Ordinary and Advanced Level certificates.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <img loading="lazy" src="images/academics/technical-track.jpg" alt="Technical track students at work" class="program-photo">
+          <h3 data-fr="Technique">Technical</h3>
+          <p data-fr="Bâtiment et Construction, Systèmes Électriques, et Mécanique Automobile, menant à la certification ITVE et TVEE.">Building &amp; Construction, Electrical Power Systems, and Auto Mobile Mechanics, leading to ITVE and TVEE certification.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon">💼</div>
+          <h3 data-fr="Commercial">Commercial</h3>
+          <p data-fr="Comptabilité, Marketing et Économie Familiale pour les élèves visant une carrière dans les affaires.">Accountancy, Marketing, and Home Economics for students pursuing business-focused careers.</p>
+        </div>
+
+        <div class="program-card reveal">
+          <img loading="lazy" src="images/academics/computer-science-track.jpg" alt="Computer lab at Silverspring College Beka" class="program-photo">
+          <h3 data-fr="Informatique">Computer Science</h3>
+          <p data-fr="Informatique et applications TIC, préparant les élèves à un monde numérique et à des carrières technologiques.">Computer Science and ICT applications, preparing learners for a digital-first world and tech-driven careers.</p>
+        </div>
+      </div>
+
+      <div class="programs-cta">
+        <a href="/academics" class="btn btn-primary" data-fr="Découvrir le Programme Complet">Explore Full Curriculum</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="home-cta" style="background-image:url('images/gallery/campus-grounds.jpg');">
+    <div class="home-cta-overlay"></div>
+    <div class="container home-cta-content reveal">
+      <p class="section-eyebrow" data-fr="Rejoignez SCB">Join SCB</p>
+      <h2 data-fr="Prêt à Rejoindre la Prochaine Génération de Leaders ?">Ready to Join the Next Generation of Leaders?</h2>
+      <p data-fr="Les candidatures pour la prochaine année académique sont ouvertes. Faites le premier pas vers l'avenir de votre enfant.">Applications for the upcoming academic year are open. Take the first step toward your child's future.</p>
+      <div class="hero-buttons">
+        <a href="/admissions" class="btn btn-primary" data-fr="Faire une Demande d'Admission">Apply for Admission</a>
+        <a href="/contact" class="btn btn-outline" data-fr="Nous Contacter">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+
+      <div class="footer-col footer-brand">
+        <img loading="lazy" src="images/logo.png" alt="Silverspring College Beka logo" class="footer-logo">
+        <p class="footer-tagline" data-fr="Fondé par la Fondation Enow Njock, façonnant la prochaine génération de leaders du Cameroun depuis 2022.">Founded by the Enow Njock Foundation, shaping Cameroon's next generation of leaders since 2022.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-fr="Liens Rapides">Quick Links</h4>
+        <ul>
+          <li><a href="/" data-fr="Accueil">Home</a></li>
+          <li><a href="/about" data-fr="À Propos de Nous">About Us</a></li>
+          <li><a href="/staff" data-fr="Personnel">Staff</a></li>
+          <li><a href="/academics" data-fr="Académique">Academics</a></li>
+          <li><a href="/admissions" data-fr="Admissions">Admissions</a></li>
+          <li><a href="/gallery" data-fr="Galerie">Gallery</a></li>
+          <li><a href="/results" data-fr="Résultats du GCE 2026">2026 GCE Results</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-fr="Portail Scolaire">School Portal</h4>
+        <ul>
+          <li><a href="https://portal.silverspringcollege.com" target="_blank" rel="noopener" data-fr="Portail">Portal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-fr="Contact">Contact</h4>
+        <ul class="footer-contact">
+          <li data-fr="Beka Matali, Ngaoundéré I<br>Division de la Vina, Région de l'Adamaoua<br>Cameroun">Beka Matali, Ngaoundéré I<br>Vina Division, Adamawa Region<br>Cameroon</li>
+          <li><a href="tel:+237675709182">+237 675 709 182</a></li>
+          <li><a href="mailto:info@silverspringcollege.com">info@silverspringcollege.com</a></li>
+          <li><a href="mailto:silverspringcollege3@gmail.com">silverspringcollege3@gmail.com</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p data-fr="&amp;copy; <span id=&quot;year&quot;></span> Silverspring College Beka. Tous droits réservés.">&copy; <span id="year"></span> Silverspring College Beka. All rights reserved.</p>
+        <p data-fr="Un établissement de la <a href=&quot;https://enownjockfoundation.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Fondation Enow Njock</a>">An institution of the <a href="https://enownjockfoundation.org" target="_blank" rel="noopener">Enow Njock Foundation</a></p>
+      </div>
+    </div>
+  </footer>
+  <!-- ============ FLOATING SOCIAL BAR ============ -->
+  <div class="social-float">
+    <a href="https://facebook.com/share/1BiccataVo?mibextid=wwXIfr" class="social-float-btn brand-facebook" target="_blank" rel="noopener" aria-label="Visit our Facebook page" data-fr-aria-label="Visitez notre page Facebook" title="Facebook">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg>
+    </a>
+    <a href="#" class="social-float-btn brand-whatsapp" data-share="whatsapp" target="_blank" rel="noopener" aria-label="Share on WhatsApp" data-fr-aria-label="Partager sur WhatsApp" title="WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+    </a>
+    <a href="#" class="social-float-btn is-utility" data-share="email" aria-label="Share by email" data-fr-aria-label="Partager par e-mail" title="Email">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M0 3v18h24V3H0zm21.518 2L12 12.713 2.482 5h19.036zM2 19V6.44l10 8.104 10-8.104V19H2z"/></svg>
+    </a>
+    <button type="button" class="social-float-btn is-utility" data-share="copy" aria-label="Copy link" data-fr-aria-label="Copier le lien" title="Copy link">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+    </button>
+  </div>
+
+<script src="js/main.js?v=19"></script>
+</body>
+</html>
